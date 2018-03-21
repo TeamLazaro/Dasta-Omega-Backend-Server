@@ -15,7 +15,7 @@ function log ( $thing ) {
  * Imports the output / contents of a PHP script,
  * in a way such that it can be assigned to a variable
  */
-function require_to_var ( $__file__, $ctx = [ ] ) {
+function renderTemplate ( $__file__, $ctx = [ ] ) {
 	extract( $ctx );
 	ob_start();
 	require $__file__;
@@ -23,34 +23,29 @@ function require_to_var ( $__file__, $ctx = [ ] ) {
 }
 
 /*
- * Format a number to an Indian Rupee
+ * Format a number to the Indian Rupee currency
  */
-function formatNumberToIndianRupee ( $num ) {
+function formatToINR ( $number ) {
 
-	$explrestunits = '';
+	$number = round( $number, 2 );
 
-	if( strlen( $num ) > 3 ) {
-		$lastthree = substr( $num, strlen( $num ) - 3, strlen( $num ) );
-		// extracts the last three digits
-		$restunits = substr( $num, 0, strlen( $num ) - 3 );
-		// explodes the remaining digits in 2's formats, adds a zero in the beginning to maintain the 2's grouping.
-		$restunits = ( strlen( $restunits ) % 2 == 1 ) ? '0' . $restunits : $restunits;
-		$expunit = str_split( $restunits, 2 );
-		for( $i=0; $i < sizeof( $expunit );  $i += 1 ) {
-			// creates each of the 2's group and adds a comma to the end
-			if ( $i == 0 ) {
-				// if is first value , convert into integer
-				$explrestunits .= (int) $expunit[ $i ] . ',';
-			} else {
-				$explrestunits .= $expunit[ $i ] . ',';
-			}
-		}
-		$thecash = $explrestunits . $lastthree;
-	} else {
-		$thecash = $num;
+	[ $integerPart, $fractionalPart ] = array_merge( explode( '.', $number ), [ '' ] );
+
+	$lastThreeDigits_integerPart = substr( $integerPart, -3 );
+	$allButlastThreeDigits_integerPart = substr( $integerPart, 0, -3 );
+
+	$formattedNumber = preg_replace( '/\B(?=(\d{2})+(?!\d))/', ',', $allButlastThreeDigits_integerPart );
+
+	if ( ! empty( $allButlastThreeDigits_integerPart ) ) {
+		$formattedNumber .= ',';
+	}
+	$formattedNumber .= $lastThreeDigits_integerPart;
+
+	// // Add in the fractional part, if there is one
+	if ( ! empty( $fractionalPart ) ) {
+		$formattedNumber .= '.' . $fractionalPart;
 	}
 
-	// writes the final format where $currency is the currency symbol.
-	return $thecash;
+	return $formattedNumber;
 
 }

@@ -43,7 +43,7 @@ async function processEnquiry ( cb ) {
 		} );
 		return;
 	}
-	enquiry.pricingSheet = response.data.pricingSheet;
+	enquiry.pricingSheet = encodeURI( response.data.pricingSheet );
 
 	// Delegate the enquiry to the Endpoint Server for other things
 	enquiry.description = "Doing other things with the pricing sheet.";

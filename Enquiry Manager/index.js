@@ -46,32 +46,16 @@ httpServer.get( "/enquire", function ( req, res ) {
 
 } );
 
+// httpServer.get( "/executive-enquire", function ( req, res ) {
+
+// 	processEnquiry( function () {
+// 		// respond back
+// 		res.header( "Access-Control-Allow-Origin", "*" );
+// 		res.json( { status: "alright", ...req.query } );
+// 	} )
+
+// } );
+
 httpServer.listen( httpPort, function (  ) {
 	console.log( "Server listening at " + httpPort + "." )
 } );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// httpServer.get( "/start", function ( req, res ) {
-// 	backgroundTask.start();
-// 	res.end( "Started the task." );
-// } );
-
-// httpServer.get( "/stop", function ( req, res ) {
-// 	backgroundTask.stop();
-// 	res.end( "Stopped the task." );
-// } );
