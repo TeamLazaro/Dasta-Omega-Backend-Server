@@ -1,0 +1,29 @@
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteCond "%{REQUEST_URI}" ^/?test$
+RewriteRule . /front-end-helpers/user-login/test.php [L,NC]
+
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteCond "%{REQUEST_URI}" ^/?get-lead$
+RewriteRule . /front-end-helpers/lead-validator/index.php [L,NC]
+
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteCond "%{REQUEST_URI}" ^/?login/google/callback$
+RewriteRule . /front-end-helpers/user-login/callback-google.php [L,NC]
+
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteCond "%{REQUEST_URI}" ^/?set-cookie$
+RewriteRule . /front-end-helpers/user-login/set-cookie.php [L,NC]
+
+# the catch-all "else" block
+# forward the request to index.php; it will do the heavy-lifting
+# RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+# RewriteRule .? index.php [QSA,L]
+
+
+</IfModule>

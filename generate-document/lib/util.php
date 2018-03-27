@@ -12,17 +12,6 @@ function log ( $thing ) {
 }
 
 /*
- * Imports the output / contents of a PHP script,
- * in a way such that it can be assigned to a variable
- */
-function renderTemplate ( $__file__, $ctx = [ ] ) {
-	extract( $ctx );
-	ob_start();
-	require $__file__;
-	return ob_get_clean();
-}
-
-/*
  * Format a number to the Indian Rupee currency
  */
 function formatToINR ( $number ) {

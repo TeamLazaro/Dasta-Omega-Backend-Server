@@ -1,7 +1,16 @@
 
 module.exports = {
+	getUnixTimestamp,
 	getDatetimeStamp
 };
+
+
+
+
+
+function getUnixTimestamp () {
+	return ( new Date() ).getTime();
+}
 
 var dateTimeFormat = new Intl.DateTimeFormat(
 	"en-IN",

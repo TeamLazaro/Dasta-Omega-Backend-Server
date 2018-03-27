@@ -6,10 +6,10 @@ let fs = require( "fs" );
 let express = require( "express" );
 
 // Our custom imports
-let datetime = require( "./datetime.js" );
-let scheduler = require( "./scheduler.js" );
+let datetime = require( "./lib/datetime.js" );
+let scheduler = require( "./lib/scheduler.js" );
 let processEnquiry = require( "./lib/enquiry-processor.js" );
-let enquiries = require( "./logs/enquiries.json" );
+let enquiries = require( "../db-log/enquiries.json" );
 
 
 
@@ -17,7 +17,7 @@ let enquiries = require( "./logs/enquiries.json" );
  * Constants declarations
  */
 let httpPort = 9999;
-let logFileName = "logs/enquiries.json";
+let logFileName = __dirname + "/../db-log/enquiries.json";
 
 // Initiate the background task
 var backgroundTask = scheduler.schedule( processEnquiry, 5 );
@@ -32,9 +32,9 @@ httpServer.get( "/enquire", function ( req, res ) {
 
 	// log the enquiry
 	var enquiry = {
-		when: datetime.getDatetimeStamp(),
-		state: "processing",
-		// description: "Rendering the pricing sheet",
+		_id: datetime.getUnixTimestamp(),
+		_when: datetime.getDatetimeStamp(),
+		_state: "processing",
 		...req.query
 	};
 	enquiries.push( enquiry );
