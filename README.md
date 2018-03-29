@@ -4,6 +4,7 @@
 [https://github.com/TeamLazaro/Omega](https://github.com/TeamLazaro/Omega)
 
 # todo
+- [ ] Check if expired cookies are sent to the server
 - Put an ID for the each enquiry log entry
 - Add rupee symbol to the pricing sheet
 - Return the URL of the pricing sheet to node

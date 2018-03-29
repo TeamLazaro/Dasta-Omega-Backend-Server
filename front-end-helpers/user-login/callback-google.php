@@ -10,21 +10,36 @@ if ( $authCode ) {
 		'code' => $authCode
 	] );
 
-	// not now
-	// $_SESSION[ 'token' ] = serialize( $token );
-
 	try {
 
 		// We got an access token, let's now get the owner details
 		$ownerDetails = $provider->getResourceOwner( $token );
 
-		// Use these details to create a new profile
-		$userId = $ownerDetails->getId();
+		// Use these details to create a cookie
 		$userProvider = 'Google';
+		$userId = $ownerDetails->getId();
+		$userFirstName = $ownerDetails->getFirstName();
+		$userEmail = $ownerDetails->getEmail();
 
-		setcookie( 'auth', 'blah', time() + 3600, '/' );
-
-		header( 'Location: http://fr.om/' );
+		// Check if user exists
+		$users = json_decode( file_get_contents( __DIR__ . '/../../db-users/users.json' ), true );
+		$userIds = array_column( $users, 'identifier' );
+		if ( in_array( $userId, $userIds ) ) {
+			if ( ! isset( $_COOKIE[ 'auth' ] ) ) {
+				$cookie = base64_encode( json_encode( [
+					'timestamp' => time(),
+					'identifier' => $userId,
+				] ) );
+				setcookie( 'auth', $cookie, time() + 3600, '/' );
+			}
+			$queryString = http_build_query( [
+				'role' => 'executive',
+				'name' => $userFirstName
+			], null, '&',  PHP_QUERY_RFC3986 );
+			header( 'Location: http://fr.om/?' . $queryString );
+		} else {
+			header( 'Location: http://fr.om/?r=e' );
+		}
 
 	} catch ( Exception $e ) {
 

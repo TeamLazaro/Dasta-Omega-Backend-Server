@@ -52,13 +52,15 @@ async function processEnquiry ( cb ) {
 	}
 
 	// Send an e-mail to the customer
-	enquiry.description = "Sending an e-mail to the customer.";
-	try {
-		let apiInput = qs.stringify( { enquiry: enquiry } );
-		let command = "php end-points/php-mailer/index.php '" + apiInput + "'";
-		await exec( command, { cwd: rootDir } );
-	} catch ( e ) {
-		enquiry.errors += "[Mailer]\n" + e.stderr + "\n\n";
+	if ( enquiry.user != "executive" ) {
+		enquiry.description = "Sending an e-mail to the customer.";
+		try {
+			let apiInput = qs.stringify( { enquiry: enquiry } );
+			let command = "php end-points/php-mailer/index.php '" + apiInput + "'";
+			await exec( command, { cwd: rootDir } );
+		} catch ( e ) {
+			enquiry.errors += "[Mailer]\n" + e.stderr + "\n\n";
+		}
 	}
 
 	// Ingest the enquiry into the CRM
