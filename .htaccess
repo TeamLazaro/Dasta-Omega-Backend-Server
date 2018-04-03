@@ -20,7 +20,7 @@ RewriteRule ^/?get-lead$ /front-end-helpers/lead-validator/index.php [L,NC]
 
 # Make an enquiry
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteRule ^/?enquire$ http://localhost:9999/enquiries [P,L]
+RewriteRule ^/?enquiries$ http://localhost:9999/enquiries [P,L]
 
 # Register
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
