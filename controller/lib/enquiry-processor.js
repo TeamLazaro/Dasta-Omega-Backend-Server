@@ -52,7 +52,7 @@ async function processEnquiry ( cb ) {
 	}
 
 	// Send an e-mail to the customer
-	if ( enquiry.user != "executive" ) {
+	if ( enquiry._user != "executive" ) {
 		enquiry.description = "Sending an e-mail to the customer.";
 		try {
 			let apiInput = qs.stringify( { enquiry: enquiry } );
@@ -68,7 +68,7 @@ async function processEnquiry ( cb ) {
 	try {
 		let apiInput = qs.stringify( { enquiry: enquiry } );
 		let command = "php end-points/zoho-crm/index.php '" + apiInput + "'";
-		await exec( command, { cwd: rootDir } );
+		let response = await exec( command, { cwd: rootDir } );
 	} catch ( e ) {
 		enquiry.errors += "[CRM]\n" + e.stderr + "\n\n";
 	}

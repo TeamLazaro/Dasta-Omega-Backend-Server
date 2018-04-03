@@ -77,33 +77,36 @@ httpServer.post( "/enquiries", function ( req, res ) {
 	/*
 	 * Validate the request body
 	 */
-	var requiredFieldsPresent = enquiryFields.regular.every( function ( key ) {
-		return key in req.query;
-	} );
-	if ( ! requiredFieldsPresent ) {
-		res.writeHead( 400, 'Invalid arguments' );
-		res.end();
-		return;
-	}
+	// var requiredFieldsPresent = enquiryFields.regular.every( function ( key ) {
+	// 	return key in req.query;
+	// } );
+	// if ( ! requiredFieldsPresent ) {
+	// 	res.writeHead( 400, 'Invalid arguments' );
+	// 	res.end();
+	// 	return;
+	// }
 
 	/*
 	 * Log the enquiry
 	 */
-	var enquiryFieldsOfConcern = enquiryFields.regular.reduce( function ( acc, currentField ) {
-		acc[ currentField ] = req.query[ currentField ];
-		return acc;
-	}, { } );
-	if ( credentials.areValid ) {
-		enquiryFieldsOfConcern = enquiryFields.executive.reduce( function ( acc, currentField ) {
-			acc[ currentField ] = req.query[ currentField ];
-			return acc;
-		}, enquiryFieldsOfConcern );
-	}
+	// var enquiryFieldsOfConcern = enquiryFields.regular.reduce( function ( acc, currentField ) {
+	// 	acc[ currentField ] = req.query[ currentField ];
+	// 	return acc;
+	// }, { } );
+	// if ( credentials.areValid ) {
+	// 	enquiryFieldsOfConcern = enquiryFields.executive.reduce( function ( acc, currentField ) {
+	// 		acc[ currentField ] = req.query[ currentField ];
+	// 		return acc;
+	// 	}, enquiryFieldsOfConcern );
+	// }
 	var enquiry = {
 		_id: datetime.getUnixTimestamp(),
 		_when: datetime.getDatetimeStamp(),
 		_state: "processing",
-		...enquiryFieldsOfConcern
+		_hostname: `${req.protocol}://${req.headers[ "x-forwarded-host" ]}`,
+		_user: credentials.areValid ? "executive" : "regular",
+		...req.body
+		// ...enquiryFieldsOfConcern
 	};
 	enquiries.push( enquiry );
 	fs.writeFileSync( logFileName, JSON.stringify( enquiries ) );

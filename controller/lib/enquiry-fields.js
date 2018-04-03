@@ -5,15 +5,18 @@ module.exports = {
 		"email",
 		"phoneNumber",
 		"unit",
+		"image_path",
 		"collapsibleBedroomWall",
 		"livingDiningSwap",
 		"poojaRoom",
 		"storeRoom",
 		"carParkSwitch",
 		"rate",
+		"quoted_rate",
 		"floor",
 		"bhk",
 		"sft",
+		"entrance_direction",
 		"gardenterrace",
 		"corner_flat",
 		"availability",
@@ -29,6 +32,8 @@ module.exports = {
 		"gardenterrace_charge",
 		"floorise_charge",
 		"cornerflat_charge",
+		"corner_premium",
+		"view_premium",
 		"total_costofapartment",
 		"maintenance_charges",
 		"statutory_deposit",
@@ -47,6 +52,8 @@ module.exports = {
 	],
 	executive: [
 		"user",
-		"discounted_rate"
+		"rateDiscount",
+		"cornerDiscount",
+		"viewDiscount"
 	]
 }
