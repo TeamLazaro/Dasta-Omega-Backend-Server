@@ -47,6 +47,8 @@ $data = [
 	'basiccost' => Util\formatToINR( $enquiry[ 'basiccost' ] ),
 	'basiccost_carpark' => Util\formatToINR( $enquiry[ 'basiccost_carpark' ] ),
 	'bhk' => $enquiry[ 'bhk' ],
+	'entrance_direction' => $enquiry[ 'entrance_direction' ],
+	'image_path' => $enquiry[ 'image_path' ],
 	'carkpark' => Util\formatToINR( $enquiry[ 'carkpark' ] ),
 	'carpark_premium_bonus' => Util\formatToINR( $enquiry[ 'carpark_premium_bonus' ] ),
 	'carpark_type' => $enquiry[ 'carpark_type' ],
@@ -54,8 +56,12 @@ $data = [
 	'collapsibleBedroomWall' => $enquiry[ 'collapsibleBedroomWall' ],
 	'corner_flat' => $enquiry[ 'corner_flat' ],
 	'cornerflat_charge' => Util\formatToINR( $enquiry[ 'cornerflat_charge' ] ),
-	'discount' => Util\formatToINR( $enquiry[ 'discount' ] ),
-	'discounted_rate' => Util\formatToINR( $enquiry[ 'discounted_rate' ] ),
+	'corner_premium' => Util\formatToINR( $enquiry[ 'corner_premium' ] ),
+	'cornerDiscount' => Util\formatToINR( $enquiry[ 'cornerDiscount' ] ),
+	'rateDiscount' => Util\formatToINR( $enquiry[ 'rateDiscount' ] ),
+	'quoted_rate' => Util\formatToINR( $enquiry[ 'quoted_rate' ] ),
+	'viewDiscount' => Util\formatToINR( $enquiry[ 'viewDiscount' ] ),
+	'view_premium' => Util\formatToINR( $enquiry[ 'view_premium' ] ),
 	'email' => $enquiry[ 'email' ],
 	'floor' => $enquiry[ 'floor' ],
 	'floorise_charge' => Util\formatToINR( $enquiry[ 'floorise_charge' ] ),
@@ -83,10 +89,11 @@ $data = [
 	'statutory_deposit' => Util\formatToINR( $enquiry[ 'statutory_deposit' ] ),
 	'storeRoom' => $enquiry[ 'storeRoom' ],
 	'total_costofapartment' => Util\formatToINR( $enquiry[ 'total_costofapartment' ] ),
-	'total_grand' => Util\formatToINR( $enquiry[ 'total_grand' ] ),
+	'total_grand' => $enquiry[ 'total_grand' ],
+	// 'total_grand' => Util\formatToINR( $enquiry[ 'total_grand' ] ),
 	'total_gross' => Util\formatToINR( $enquiry[ 'total_gross' ] ),
 	'unit' => $enquiry[ 'unit' ],
-	'user' => $enquiry[ 'user' ],
+	'user' => $enquiry[ '_user' ]
 ];
 
 try {
@@ -99,7 +106,7 @@ try {
 	file_put_contents( $output_directory . $output_filename, $dompdf->output() );
 
 	$response[ 'message' ] = 'Generated the Pricing Sheet';
-	$response[ 'pricingSheet' ] = 'http://ser.om/media/quotes/' . $output_filename;
+	$response[ 'pricingSheet' ] = $enquiry[ '_hostname' ] . '/media/quotes/' . $output_filename;
 	// $response[ 'pricingSheet' ] = $output_directory . $output_filename;
 
 	die( json_encode( $response ) );

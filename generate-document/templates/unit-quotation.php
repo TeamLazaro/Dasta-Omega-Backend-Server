@@ -1,62 +1,154 @@
 <?php
 
-// require_once '../lib/util.php';
+require_once __DIR__ . '/../lib/util.php';
 
 ?>
-
-<h1>Pricing Sheet for #<?php echo $unit ?></h1>
-
-<p>Name: <?php echo $name ?></p>
-<p>Email: <?php echo $email ?></p>
-<p>Phone Number: <?php echo $phoneNumber ?></p>
-
-<h2>Specifications:</h2>
-<p>Type: <?php echo $bhk ?></p>
-<p>Floor: <?php echo $floor ?></p>
-<p>Super Built-up Area: <?php echo $sft ?></p>
-<p>Garden / Terrace Area: <?php echo $gardenterrace ?></p>
-<p>Rate per sqft: <?php echo $discounted_rate ?></p>
-<p>Corner Flat: <?php echo $corner_flat ?></p>
-<p>Car Park: <?php echo $carpark_type == 'c' ? 'Covered' : 'Semi-covered' ?></p>
-
-<p>Mod A: <?php echo $mod_collapsable_bedroom_wall ?></p>
-<p>Mod B: <?php echo $mod_living_dining_room_swap ?></p>
-<p>Mod C: <?php echo $mod_pooja_room ?></p>
-<p>Mod D: <?php echo $mod_store_room ?></p>
-
-
-<h2>Cost breakdown:</h2>
-<p>Basic Cost: Rs. <?php echo $basiccost ?></p>
-<p>Basic Cost including car park: Rs. <?php echo $basiccost_carpark ?></p>
-<p>Garden / Terrace Charge: Rs. <?php echo $gardenterrace_charge ?></p>
-<p>Car Park: <?php echo $carkpark ?></p>
-<p>Car Park Upgrade/Downgrade: Rs. <?php echo $carpark_premium_bonus ?></p>
-<p>Corner Flat Charge: Rs. <?php echo $cornerflat_charge ?></p>
-<p>Floor Rise Charge: Rs. <?php echo $floorise_charge ?></p>
-<p>Total Cost: Rs. <?php echo $total_costofapartment ?></p>
-
-<h3>Modifications:</h3>
-<p>Collapsible Bedroom Wall: <?php echo $collapsibleBedroomWall ?></p>
-<p>Living / Dining Swap: <?php echo $livingDiningSwap ?></p>
-<p>Pooja Room: <?php echo $poojaRoom ?></p>
-<p>Store Room: <?php echo $storeRoom ?></p>
-
-
-
-<p>Statutory Deposit: Rs. <?php echo $statutory_deposit ?></p>
-
-<p>Club Membership: Rs. <?php echo $club_membership ?></p>
-<p>Maintenance: Rs. <?php echo $maintenance_charges ?></p>
-<p>Generator / STP: Rs. <?php echo $generator_stp ?></p>
-<p>Legal: Rs. <?php echo $legal_charges ?></p>
-
-<p>Gross Total: Rs. <?php echo $total_gross ?></p>
-<p>GST: Rs. <?php echo $gst ?></p>
-<p>Grand Total: Rs. <?php echo $total_grand ?></p>
-
-
-<!-- <p><?php echo $mod_toggle_collapsable_bedroom_wall ?></p>
-<p><?php echo $mod_toggle_living_dining_room_swap ?></p>
-<p><?php echo $mod_toggle_pooja_room ?></p>
-<p><?php echo $mod_toggle_store_room ?></p>
-<p><?php echo $mod_toggle_car_park ?></p> -->
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">
+			<?php // require_once 'unit-quotation.css'; ?>
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="head section">
+				<img src="dasta-logo-dark-huge.png" height="58" width="276" border="0"/>
+				<h2>Concerto</h2>
+				<h6>on Sarjapur Road</h6>
+			</div>
+			<div class="intro section">
+				<h1>Hello <?php echo $name ?></h1>
+				<h1 class="pre-super">You have chosen apartment</h1>
+				<h1 class="super">#<?php echo $unit ?></h1>
+				<h1>A <?php echo $bhk ?> on the <?php $floor ?> floor</h1>
+			</div>
+			<div class="threed section page-break">
+				<h1>3D Isometric</h1>
+				<img class="force-full" src="../../media/floorplans_3D/<?php echo $image_path ?>" height="500" width="500" border="0">
+			</div>
+			<pagebreak />
+			<div class="twod section page-break">
+				<h1>2D unit plan</h1>
+			</div>
+			<pagebreak />
+			<div class="pricing section">
+				<h1>Pricing for <em>#<?php echo $unit ?></em></h1>
+				<h1>Rate per sft <em><?php echo $quoted_rate ?></em></h1>
+				<h3 class="line"><span class="line-line"></span><span class="line-dashed"></span><span class="line-white">Super built-up area <em><?php echo $sft ?> sft</em></span></h3>
+				<h6>Garden/terrace area <em><?php echo $gardenterrace ?> sft</em></h6>
+				<table>
+					<thead>
+						<tr>
+							<th>Basic cost of flat including alloted <?php echo $carpark_type ?> car park</th>
+							<th class="text-right"><?php echo $basiccost_carpark ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Cost of garden/terrace</td>
+							<td class="text-right"><?php echo $gardenterrace_charge ?></td>
+						</tr>
+						<tr>
+							<td>Floor rise charge</td>
+							<td class="text-right"><?php echo $floorise_charge ?></td>
+						</tr>
+						<tr>
+							<td>Corner flat premium charge</td>
+							<td class="text-right"><?php echo $corner_premium ?></td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>total cost of flat <em><?php echo $total_costofapartment ?></em></h3>
+				<table>
+					<tbody>
+						<!-- <tr>
+							<td>Maintenance charges</td>
+							<td class="text-right">' . rupee(true) . money_format( '%!.0n', $maintenance_charges ) . '</td>
+						</tr> -->
+						<tr>
+							<td>View Premium</td>
+							<td class="text-right"><?php echo $view_premium ?></td>
+						</tr>
+						<tr>
+							<td>Statutory deposit</td>
+							<td class="text-right"><?php echo $statutory_deposit ?></td>
+						</tr>
+						<tr>
+							<td>Generator and STP</td>
+							<td class="text-right"><?php echo $generator_stp ?></td>
+						</tr>
+						<tr>
+							<td>Club membership charges</td>
+							<td class="text-right"><?php echo $club_membership ?></td>
+						</tr>
+						<tr>
+							<td>Legal charges</td>
+							<td class="text-right"><?php echo $legal_charges ?></td>
+						</tr>
+					</tbody>
+				</table>
+				<h5 class="line"><span class="line-line"></span><span>Modifications</span></h5>
+				<table>
+					<tbody>
+						<tr>
+							<td>Collapsible 3rd bedroom wall</td>
+							<td class="text-right"><?php echo $mod_collapsable_bedroom_wall ?></td>
+						</tr>
+						<tr>
+							<td>Pooja Room</td>
+							<td class="text-right"><?php echo $mod_pooja_room ?></td>
+						</tr>
+						<tr>
+							<td>Living & Dining room swap</td>
+							<td class="text-right"><?php echo $mod_living_dining_room_swap ?></td>
+						</tr>
+						<tr>
+							<td><?php if ( intval( $floor ) <= 3 ) { echo 'Upgraded to a covered car park'; } else { echo 'Downgraded to a semi-covered car park'; } ?></td>
+							<td class="text-right"><?php echo $carpark_premium_bonus ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="grand-total section page-break">
+				<h1><em>Grand total <?php echo $total_grand ?></em></h1>
+				<p><img src="/warning.png" height="30" width="33" border="0"/>&nbsp;&nbsp; Please note: This price is only valid till <?php echo date('jS M Y', strtotime('+ 20 days')) ?></p>
+			</div>
+			<pagebreak />
+			<div class="schedule section page-break">
+				<h1><em>Payment schedule</em></h1>
+				<table>
+					<tbody>
+						<tr>
+							<td>Booking amount</td>
+							<td class="line">&nbsp;</td>
+							<td class="text-right"><?php echo Util\formatToINR( 200000 ) ?></td>
+							<td class="text-right"></td>
+						</tr>
+						<tr>
+							<td>Payment on Sale Agreement</td>
+							<td class="line">&nbsp;</td>
+							<td class="text-right"><?php echo Util\formatToINR( 0.2 * $total_grand - 200000 ) ?></td>
+							<td class="text-right">20%</td>
+						</tr>
+						<tr>
+							<td>Payment on Sale Deed</td>
+							<td class="line">&nbsp;</td>
+							<td class="text-right"><?php echo Util\formatToINR( 0.8 * $total_grand ) ?></td>
+							<td class="text-right">80%</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td>Total</td>
+							<td class="line">&nbsp;</td>
+<td class="text-right"><?php echo Util\formatToINR( $total_grand ) ?></td>
+							<td class="text-right">100%</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

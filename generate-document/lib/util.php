@@ -18,7 +18,10 @@ function formatToINR ( $number ) {
 
 	$number = round( $number, 2 );
 
-	[ $integerPart, $fractionalPart ] = array_merge( explode( '.', $number ), [ '' ] );
+	$integerAndFractionalParts = array_merge( explode( '.', $number ), [ '' ] );
+	// [ $integerPart, $fractionalPart ] = array_merge( explode( '.', $number ), [ '' ] );
+	$integerPart = $integerAndFractionalParts[ 0 ];
+	$fractionalPart = $integerAndFractionalParts[ 1 ];
 
 	$lastThreeDigits_integerPart = substr( $integerPart, -3 );
 	$allButlastThreeDigits_integerPart = substr( $integerPart, 0, -3 );
@@ -33,6 +36,12 @@ function formatToINR ( $number ) {
 	// // Add in the fractional part, if there is one
 	if ( ! empty( $fractionalPart ) ) {
 		$formattedNumber .= '.' . $fractionalPart;
+	}
+
+	if ( preg_match( '/^-/', $formattedNumber ) ) {
+		$formattedNumber = preg_replace( '/^-/', 'minus ₹', $formattedNumber );
+	} else {
+		$formattedNumber = '₹' . $formattedNumber;
 	}
 
 	return $formattedNumber;
