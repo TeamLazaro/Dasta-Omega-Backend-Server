@@ -5,6 +5,7 @@ let fs = require( "fs" );
 // Third-party packages
 let express = require( "express" );
 let cookieParser = require( "cookie-parser" );
+let bodyParser = require( "body-parser" );
 let base64 = require( "base-64" );
 
 // Our custom imports
@@ -31,8 +32,17 @@ backgroundTask.start();
  * Set up the HTTP server
  */
 let httpServer = express();
+// Create an HTTP body parser for the type "application/json"
+let jsonParser = bodyParser.json()
+// Create an HTTP body parser for the type "application/x-www-form-urlencoded"
+let urlencodedParser = bodyParser.urlencoded( { extended: false } )
 
-httpServer.get( "/enquire", cookieParser(), function ( req, res ) {
+// Plugging in the middleware
+httpServer.use( cookieParser() );
+httpServer.use( urlencodedParser );
+httpServer.use( jsonParser );
+
+httpServer.post( "/enquiries", function ( req, res ) {
 
 	// res.header( "Access-Control-Allow-Origin", "*" );
 	res.header( "Access-Control-Allow-Origin", req.headers.origin );

@@ -6,10 +6,10 @@ use League\OAuth2\Client\Provider\Google;
 
 // Replace these with your token settings
 // Create a project at https://console.developers.google.com/
-$clientId = '1066996965552-1g2sjgilmcsrvpehm2tpqofd5vm2rct9.apps.googleusercontent.com';
-$clientSecret = '2eqrrzCmn0HRalWawFgXdWiW';
+$clientId = '126828542038-kn6jjbg3ln6t6h93mjohg299a164gi3i.apps.googleusercontent.com';
+$clientSecret = '0uMrUjXIIVjHq9zd1MAGGv9X';
 // Change this if you are not using the built-in PHP server
-$redirectUri = 'http://ser.om/register/google/callback';
+$redirectUri = 'http://dasta.omega.lazaro.in/register/google/callback';
 
 // Start the session
 session_start();
