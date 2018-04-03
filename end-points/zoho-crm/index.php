@@ -61,6 +61,10 @@ try {
 	if ( $prospect ) {
 		CRM\uploadFileToProspect( $prospect[ 'CONTACTID' ], $pricingSheetURL );
 		$clientResponse[ 'message' ] = 'Attached pricing sheet to existing prospect on Zoho.';
+		if ( $enquiry[ '_user' ] == 'executive' ) {
+			CRM\createQuote( $prospect, $enquiry );
+			$clientResponse[ 'message' ] = 'Created a new quote for the existing prospect on Zoho.';
+		}
 		die( json_encode( $clientResponse ) );
 	}
 	// If prospect did not exist
