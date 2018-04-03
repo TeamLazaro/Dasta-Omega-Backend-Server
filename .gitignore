@@ -1,5 +1,11 @@
 
+# Mac OSX hidden files
 .DS_Store
+
+# Third-party packages
 # node_modules
 # vendor
+
+# The media folder
+media
 *.pdf
