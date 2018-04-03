@@ -3,35 +3,40 @@
 
 RewriteEngine On
 
+# Get the relative URI
+# RewriteCond %{ENV:RELATIVE_URI} ^$
+# RewriteRule (.*) - [ENV=RELATIVE_URI:$1]
+# Get the current directory
+# RewriteCond %{ENV:CWD} ^$
+# RewriteCond %{ENV:CWD}::%{REQUEST_URI} ^(.*)::(.*?)$
+# RewriteRule ^$ - [ENV=CWD:%2]
+
+# For Debugging
+# RewriteRule (.*) https://example.com/?rel_uri=$1%{RELATIVE_URL} [R=301,L]
+
 # Get lead based on a given phone number
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteCond "%{REQUEST_URI}" ^/?get-lead$
-RewriteRule . /front-end-helpers/lead-validator/index.php [L,NC]
+RewriteRule ^/?get-lead$ /front-end-helpers/lead-validator/index.php [L,NC]
 
 # Make an enquiry
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteCond "%{REQUEST_URI}" ^/?enquire$
-RewriteRule . http://localhost:9999/enquire [P,L]
+RewriteRule ^/?enquire$ http://localhost:9999/enquiries [P,L]
 
 # Register
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteCond "%{REQUEST_URI}" ^/?register$
-RewriteRule . /front-end-helpers/user-register/index.php [L,NC]
+RewriteRule ^/?register$ /front-end-helpers/user-register/index.php [L,NC]
 
 # Register OAuth callback
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteCond "%{REQUEST_URI}" ^/?register/google/callback$
-RewriteRule . /front-end-helpers/user-register/callback-google.php [L,NC]
+RewriteRule ^/?register/google/callback$ /front-end-helpers/user-register/callback-google.php [L,NC]
 
 # Log-in
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteCond "%{REQUEST_URI}" ^/?login/google/callback$
-RewriteRule . /front-end-helpers/user-login/callback-google.php [L,NC]
+RewriteRule ^/?login/google/callback$ /front-end-helpers/user-login/callback-google.php [L,NC]
 
 # Log out
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteCond "%{REQUEST_URI}" ^/?logout$
-RewriteRule . /front-end-helpers/user-login/logout.php [L,NC]
+RewriteRule ^/?logout$ /front-end-helpers/user-login/logout.php [L,NC]
 
 # the catch-all "else" block
 # forward the request to index.php; it will do the heavy-lifting
