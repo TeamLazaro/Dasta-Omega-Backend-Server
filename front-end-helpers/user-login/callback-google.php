@@ -34,7 +34,7 @@ if ( $authCode ) {
 			}
 			$queryString = http_build_query( [
 				'role' => 'executive',
-				'name' => $userFirstName
+				'user' => $userFirstName
 			], null, '&',  PHP_QUERY_RFC3986 );
 			header( 'Location: http://139.59.80.92/pricing?' . $queryString );
 		} else {
