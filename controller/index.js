@@ -29,20 +29,20 @@ var backgroundTask = scheduler.schedule( processEnquiry, 5 );
 backgroundTask.start();
 
 /*
- * Set up the HTTP server
+ * Set up the HTTP server and the routes
  */
-let httpServer = express();
+let router = express();
 // Create an HTTP body parser for the type "application/json"
 let jsonParser = bodyParser.json()
 // Create an HTTP body parser for the type "application/x-www-form-urlencoded"
 let urlencodedParser = bodyParser.urlencoded( { extended: false } )
 
 // Plugging in the middleware
-httpServer.use( cookieParser() );
-httpServer.use( urlencodedParser );
-httpServer.use( jsonParser );
+router.use( cookieParser() );
+router.use( urlencodedParser );
+router.use( jsonParser );
 
-httpServer.post( "/enquiries", function ( req, res ) {
+router.post( "/enquiries", function ( req, res ) {
 
 	// res.header( "Access-Control-Allow-Origin", "*" );
 	res.header( "Access-Control-Allow-Origin", req.headers.origin );
@@ -117,6 +117,25 @@ httpServer.post( "/enquiries", function ( req, res ) {
 
 } );
 
-httpServer.listen( httpPort, function (  ) {
-	console.log( "Server listening at " + httpPort + "." )
+let httpServer = router.listen( httpPort, function (  ) {
+	if ( process.env.NODE_ENV != "production" )
+		console.log( "Server listening at " + httpPort + "." );
+	// process.send( "ready" );
+} );
+
+
+/*
+ * Handle process shutdown
+ *
+ * 1. Stop the background task.
+ * 2. Once that is done, then close the HTTP server.
+ * 3. Finally, quit the process.
+ *
+ */
+process.on( "SIGINT", function () {
+	backgroundTask.stop();
+	scheduler.onStopped( backgroundTask, function () {
+		httpServer.close();
+		process.exit( 0 );
+	} );
 } );

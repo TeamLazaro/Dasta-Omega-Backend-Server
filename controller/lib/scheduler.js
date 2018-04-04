@@ -1,6 +1,7 @@
 
 module.exports = {
-	schedule
+	schedule,
+	onStopped
 };
 
 function schedule ( task, interval ) {
@@ -18,6 +19,11 @@ function schedule ( task, interval ) {
 	function scheduleNextExecution () {
 		if ( status == "running" ) {
 			timerId = setTimeout( runAndScheduleTask, interval );
+		}
+		else {
+			// if the status is not "running", then it must be "stopping",
+			// in which case, make it "stopped"
+			status = "stopped";
 		}
 	}
 
@@ -38,6 +44,12 @@ function schedule ( task, interval ) {
 	 *
 	 */
 	return {
+		get status () {
+			return status;
+		},
+		set status ( message ) {
+			status = message;
+		},
 		start: function () {
 			if ( status == "running" ) return;
 			status = "running";
@@ -46,8 +58,23 @@ function schedule ( task, interval ) {
 		stop: function () {
 			clearTimeout( timerId );
 			timerId = null;
-			status = "stopped";
+			status = "stopping";
 		},
 	};
+
+}
+
+function onStopped ( task, callback ) {
+
+	var timestamp = ( new Date() ).getTime() / 1000;
+	function checkIfTheTaskHasStopped () {
+		var currentTimestamp = ( new Date() ).getTime() / 1000;
+		if ( task.status == "stopped" || currentTimestamp - timestamp >= 15 )
+			callback();
+		else
+			setTimeout( checkIfTheTaskHasStopped, 1000 );
+	}
+
+	checkIfTheTaskHasStopped();
 
 }
