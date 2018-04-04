@@ -22,7 +22,7 @@ if ( $authCode ) {
 		$userEmail = $ownerDetails->getEmail();
 
 		// Check if user exists
-		$users = json_decode( file_get_contents( __DIR__ . '/../../db-users/users.json' ), true );
+		$users = json_decode( file_get_contents( __DIR__ . '/../../data/users.json' ), true );
 		$userIds = array_column( $users, 'identifier' );
 		if ( in_array( $userId, $userIds ) ) {
 			if ( ! isset( $_COOKIE[ 'auth' ] ) ) {

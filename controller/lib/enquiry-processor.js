@@ -15,14 +15,14 @@ let qs = require( "qs" );
 let axios = require( "axios" );
 
 // Our custom imports
-let enquiries = require( "../../db-log/enquiries.json" );
+let enquiries = require( "../../data/enquiries.json" );
 let lib = require( "./other.js" );
 
 /*
  * Constants declarations
  */
 let rootDir = __dirname + "/../../";
-let logFileName = __dirname + "/../../db-log/enquiries.json";
+let logFileName = __dirname + "/../../data/enquiries.json";
 
 // Promisify-ing the exec function so that it plays well with the async/await syntax
 let exec = util.promisify( child_process.exec );

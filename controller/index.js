@@ -12,7 +12,7 @@ let base64 = require( "base-64" );
 let datetime = require( "./lib/datetime.js" );
 let scheduler = require( "./lib/scheduler.js" );
 let processEnquiry = require( "./lib/enquiry-processor.js" );
-let enquiries = require( "../db-log/enquiries.json" );
+let enquiries = require( "../data/enquiries.json" );
 let enquiryFields = require( "./lib/enquiry-fields.js" );
 
 
@@ -21,8 +21,8 @@ let enquiryFields = require( "./lib/enquiry-fields.js" );
  * Constants declarations
  */
 let httpPort = 9999;
-let credentialsFileName = __dirname + "/../db-users/users.json";
-let logFileName = __dirname + "/../db-log/enquiries.json";
+let credentialsFileName = __dirname + "/../data/users.json";
+let logFileName = __dirname + "/../data/enquiries.json";
 
 // Initiate the background task
 var backgroundTask = scheduler.schedule( processEnquiry, 5 );

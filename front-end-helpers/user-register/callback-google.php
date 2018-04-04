@@ -1,7 +1,7 @@
 <?php
 
 $provider = require __DIR__ . '/provider.php';
-$userDatabase = __DIR__ . '/../../db-users/users.json';
+$userDatabase = __DIR__ . '/../../data/users.json';
 
 $authCode = $_GET[ 'code' ] ?? 0;
 
