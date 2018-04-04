@@ -120,7 +120,8 @@ router.post( "/enquiries", function ( req, res ) {
 let httpServer = router.listen( httpPort, function (  ) {
 	if ( process.env.NODE_ENV != "production" )
 		console.log( "Server listening at " + httpPort + "." );
-	// process.send( "ready" );
+	if ( process.send )
+		process.send( "ready" );
 } );
 
 
