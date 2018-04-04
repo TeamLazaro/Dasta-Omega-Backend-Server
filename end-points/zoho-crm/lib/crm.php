@@ -30,7 +30,9 @@ function getLead ( $phoneNumber/*, $email*/ ) {
 					// ->orWhere( 'Email', $email )
 					->request();
 		$records = array_values( $records );
-	} catch ( Exception | ZohoException\NoDataException $e ) {
+	} catch ( ZohoException\NoDataException $e ) {
+
+	} catch ( Exception $e ) {
 		$records = [ ];
 	}
 
@@ -62,7 +64,9 @@ function getProspect ( $phoneNumber/*, $email*/ ) {
 					// ->orWhere( 'Email', $email )
 					->request();
 		$records = array_values( $records );
-	} catch ( Exception | ZohoException\NoDataException $e ) {
+	} catch ( ZohoException\NoDataException $e ) {
+		$records = [ ];
+	} catch ( Exception $e ) {
 		$records = [ ];
 	}
 
@@ -158,7 +162,7 @@ function createQuote ( $prospect, $enquiry ) {
 	/*
 	 * Create the quote
 	 */
-	$quoteName = $enquiry[ 'unit' ] . ' @ ' . $enquiry[ 'discounted_rate' ];
+	$quoteName = $enquiry[ 'unit' ] . ' @ ' . $enquiry[ 'quoted_rate' ];
 	if ( $enquiry[ 'carpark_premium_bonus' ] ) {
 		if ( $enquiry[ 'carpark_type' ] == 'c' ) {
 			$quoteName .= ' + Car Park Downgrade';
