@@ -36,15 +36,15 @@ if ( $authCode ) {
 				'role' => 'executive',
 				'name' => $userFirstName
 			], null, '&',  PHP_QUERY_RFC3986 );
-			header( 'Location: http://fr.om/?' . $queryString );
+			header( 'Location: http://139.59.80.92/pricing?' . $queryString );
 		} else {
-			header( 'Location: http://fr.om/?r=e' );
+			header( 'Location: http://139.59.80.92/pricing?r=e' );
 		}
 
 	} catch ( Exception $e ) {
 
 		// Failed to get user details
-		header( 'Location: http://fr.om/?r=e' );
+		header( 'Location: http://139.59.80.92/pricing?r=' . $e->getMessage() );
 
 	}
 

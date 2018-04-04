@@ -26,7 +26,7 @@ if ( $authCode ) {
 		$users = json_decode( file_get_contents( $userDatabase ), true );
 		$userIds = array_column( $users, 'identifier' );
 		if ( in_array( $userId, $userIds ) ) {
-			header( 'Location: http://fr.om/' );
+			header( 'Location: http://139.59.80.92/pricing' );
 			exit;
 		}
 		$users[ ] = [
@@ -37,12 +37,12 @@ if ( $authCode ) {
 		];
 		file_put_contents( $userDatabase, json_encode( $users ) );
 
-		header( 'Location: http://fr.om/' );
+		header( 'Location: http://139.59.80.92/pricing' );
 
 	} catch ( Exception $e ) {
 
 		// Failed to get user details
-		header( 'Location: http://fr.om/?r=e' );
+		header( 'Location: http://139.59.80.92/pricing?r=' . $e->getMessage() );
 
 	}
 
