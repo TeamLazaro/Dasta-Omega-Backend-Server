@@ -39,9 +39,13 @@ $enquiry = $input[ 'enquiry' ];
  */
 // Prepare the envelope
 $envelope = [
+	'username' => 'noreply@dasta.in',
+	'password' => 'D4st4 C0nc3rt0',
 	'from' => [
-		'email' => 'adityabhat@lazaro.in',
-		'name' => 'The Omega'
+		// 'email' => 'adityabhat@lazaro.in',
+		// 'name' => 'The Omega'
+		'email' => 'noreply@dasta.in',
+		'name' => 'Dasta Concerto'
 	],
 	'to' => [
 		'email' => $enquiry[ 'email' ],
