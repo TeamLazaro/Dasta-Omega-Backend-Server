@@ -30,14 +30,6 @@ class ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
-        'F' => 
-        array (
-            'FontLib\\' => 8,
-        ),
-        'D' => 
-        array (
-            'Dompdf\\' => 7,
-        ),
         'B' => 
         array (
             'Buzz\\' => 5,
@@ -74,14 +66,6 @@ class ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'FontLib\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
-        ),
-        'Dompdf\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
-        ),
         'Buzz\\' => 
         array (
             0 => __DIR__ . '/..' . '/kriswallsmith/buzz/lib/Buzz',
@@ -89,17 +73,6 @@ class ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315
     );
 
     public static $prefixesPsr0 = array (
-        'S' => 
-        array (
-            'Svg\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
-            ),
-            'Sabberworm\\CSS' => 
-            array (
-                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
-            ),
-        ),
         'C' => 
         array (
             'CristianPontes\\ZohoCRMClient' => 
@@ -109,22 +82,12 @@ class ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315
         ),
     );
 
-    public static $classMap = array (
-        'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
-        'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
-        'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
-        'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
-        'HTML5_Tokenizer' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
-        'HTML5_TreeBuilder' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit14e8a174c37856a4ddf8b59b388fe315::$classMap;
 
         }, null, ClassLoader::class);
     }
