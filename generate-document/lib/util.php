@@ -39,9 +39,9 @@ function formatToINR ( $number ) {
 	}
 
 	if ( preg_match( '/^-/', $formattedNumber ) ) {
-		$formattedNumber = preg_replace( '/^-/', 'minus ₹', $formattedNumber );
+		$formattedNumber = preg_replace( '/^-/', 'minus <span class="symbol-rupee">₹</span>', $formattedNumber );
 	} else {
-		$formattedNumber = '₹' . $formattedNumber;
+		$formattedNumber = '<span class="symbol-rupee">₹</span>' . $formattedNumber;
 	}
 
 	return $formattedNumber;

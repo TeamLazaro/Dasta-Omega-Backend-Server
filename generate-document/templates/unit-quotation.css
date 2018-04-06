@@ -1,0 +1,401 @@
+@charset "UTF-8";
+
+html, body {
+  height: 100%; }
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html,
+body {
+  font-size: 16px; }
+
+body {
+  background: #fff;
+  color: white;
+  padding: 0;
+  margin: 0;
+  font-family: Tahoma, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  position: relative;
+  cursor: default; }
+
+img {
+  max-width: 100%;
+  height: auto; }
+
+img {
+  display: inline-block;
+  vertical-align: middle; }
+
+
+
+.text-right {
+  text-align: right !important; }
+
+.text-right {
+  text-align: right !important; }
+
+
+/* Typography resets */
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0; }
+
+/* Default paragraph styles */
+p {
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  text-rendering: optimizeLegibility; }
+
+/* Default header styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "museo-sans-rounded", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: white;
+  text-rendering: optimizeLegibility;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.6; }
+
+
+h1 {
+  font-size: 1.1875rem; }
+
+h2 {
+  font-size: 1.1875rem; }
+
+h3 {
+  font-size: 1.1875rem; }
+
+
+
+h5 {
+  font-size: 1.125rem; }
+
+h6 {
+  font-size: 1.3125rem; }
+
+
+
+
+/* Helpful Typography Defaults */
+em,
+i {
+  font-style: italic;
+  line-height: inherit; }
+
+
+/* Lists */
+ul,
+ol,
+dl {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  list-style-position: outside;
+  font-family: inherit; }
+
+
+/* Ordered Lists */
+ol {
+  margin-left: 1.4rem; }
+
+@media only screen and (min-width: 40.063em) {
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.6; }
+
+  h1 {
+    font-size: 1.8125rem; }
+
+  h2 {
+    font-size: 1.8125rem; }
+
+  h3 {
+    font-size: 1.5rem; }
+
+  h4 {
+    font-size: 1.3125rem; } }
+/*
+ * Print styles.
+ *
+ * Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/
+ * Credit to Paul Irish and HTML5 Boilerplate (html5boilerplate.com)
+*/
+.print-only {
+  display: none !important; }
+
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    /* Black prints faster: h5bp.com/s */
+    box-shadow: none !important;
+    text-shadow: none !important; }
+
+  a,
+  a:visited {
+    text-decoration: underline; }
+
+  a[href]:after {
+    content: " (" attr(href) ")"; }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")"; }
+
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: ""; }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid; }
+
+  thead {
+    display: table-header-group;
+    /* h5bp.com/t */ }
+
+  tr,
+  img {
+    page-break-inside: avoid; }
+
+  img {
+    max-width: 100% !important; }
+
+  @page {
+    margin: 0.5cm; }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3; }
+
+  h2,
+  h3 {
+    page-break-after: avoid; }
+
+  .hide-on-print {
+    display: none !important; }
+
+  .print-only {
+    display: block !important; }
+
+  .hide-for-print {
+    display: none !important; }
+
+  .show-for-print {
+    display: inherit !important; } }
+
+/*
+* UtilityBelt - a starter kit for any SASS project
+* By @dmtintner & @hackingui
+* Documentation and examples - hackingui.com/front-end/10-best-scss-utilities/
+* V1.1.0
+*/
+/*
+## Triangle
+* @include triangle within a pseudo element and add positioning properties (ie. top, left)
+* $direction: up, down, left, right
+*/
+/*
+* Currency
+*/
+/*
+* Clearfix
+*/
+/*
+* Respond To
+*/
+/*
+* Ghost Vertical Align
+*/
+/*
+* Truncate Text
+*/
+/*
+* Animation
+*/
+/*
+* Alerted
+*/
+
+/*
+* Resize Sprite - for resizing only a single image from a sprite
+*
+* params: $map = $<name>-sprites (ex. $icon-sprites)
+*         $sprite = file name w/o file type ending (ex. globe)
+          $percent = number (ex. 50)
+*
+* (if compass CSS3 mixins not included, uncomment the background-size row and comment the @include version)
+*/
+/*
+* Resizes all images in a given sprite
+* mixin courtesy of Wilker Lúcio https://gist.github.com/wilkerlucio/6442309
+* params: $only = if you want to list specific files instead of regenerating every image (ex. globe, checkmark)
+*/
+/*
+* HUI Tooltips
+*/
+/*
+## Text-align justify
+For perfectly aligned grids that don't rely on floating elements and difficult calculations
+
+- http://www.barrelny.com/blog/text-align-justify-and-rwd/ */
+@page {
+  margin: 10%;
+  margin-footer: 5mm;
+  footer: html_footer; }
+html, body, p, h1, h2, h3, h4, h5, h6 {
+  color: black;
+  text-align: center; }
+  html em, body em, p em, h1 em, h2 em, h3 em, h4 em, h5 em, h6 em {
+    color: black;
+    font-style: normal; }
+
+h1, h2, h3, h4, h5, h6 {
+  text-transform: uppercase;
+  line-height: 1em; }
+
+
+
+.line {
+  position: relative;
+  margin-top: 2rem; }
+
+.line-line {
+  border-top: 1px dashed black;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  top: 0.5em;
+  left: 0; }
+
+.line-white {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  padding: 0 1em;
+  margin-top: -0.5em;
+  background: white; }
+
+h1 {
+  font-size: 2.1rem;
+  margin: 2rem 0; }
+
+.pre-super {
+  margin-bottom: 0; }
+
+.super {
+  display: block;
+  font-size: 4.8em;
+  line-height: 1em;
+  margin-top: 0; }
+
+h2 {
+  font-weight: normal;
+  font-size: 2.1rem; }
+
+h3 {
+  font-size: 1.6rem; }
+
+
+
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 2em; }
+  table td {
+    color: black;
+    text-align: left; }
+  table th, table tfoot td {
+    color: black;
+    font-weight: normal;
+    text-align: left; }
+
+.text-right, table th.text-right, table td.text-right, table tfoot td.text-right {
+  text-align: right !important; }
+
+.wrap {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 75rem;
+  *zoom: 1; }
+  .wrap:before, .wrap:after {
+    content: " ";
+    display: table; }
+  .wrap:after {
+    clear: both; }
+
+.section {
+  padding-left: 1.40625rem;
+  padding-right: 1.40625rem;
+  width: 100%;
+  float: left;
+  padding-top: 1.40625rem;
+  padding-bottom: 1.40625rem;
+  border-bottom: 1px dashed #595959; }
+
+.page-break {
+  border: 0; }
+
+
+
+.intro {
+  padding-top: 0.9375rem !important;
+  padding-bottom: 0.9375rem !important; }
+
+.intro .grand-total {
+  margin-bottom: 0;
+}
+
+.pricing {
+  border-top: 1px dashed #595959; }
+
+
+
+.fine-print {
+  width: 70%;
+  margin: 0 15%;
+  font-size: 0.9rem;
+  margin-top: 2.8125rem; }
+  .fine-print li {
+    text-align: left; }
+
+.symbol-rupee {
+  font-family: Tahoma, sans-serif;
+  font-weight: 100;
+}

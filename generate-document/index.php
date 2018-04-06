@@ -4,12 +4,13 @@
  * This script renders a PDF from a template merged with data using DOMPDF
  */
 
-ini_set( 'display_errors', 'stderr' );
+ini_set( 'display_errors', 0 );
 ini_set( 'error_reporting', E_ALL );
 
 date_default_timezone_set( 'Asia/Kolkata' );
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/lib/mPDF/mpdf.php';
+
 require_once __DIR__ . '/lib/util.php';
 require_once __DIR__ . '/lib/templating.php';
 
@@ -37,77 +38,50 @@ $enquiry = $input[ 'enquiry' ];
 
 
 
-use Dompdf\Dompdf;
-
-$dompdf = new Dompdf();
-
-// Data that will be fed to the template
-$data = [
-	'availability' => $enquiry[ 'availability' ],
-	'basiccost' => Util\formatToINR( $enquiry[ 'basiccost' ] ),
-	'basiccost_carpark' => Util\formatToINR( $enquiry[ 'basiccost_carpark' ] ),
-	'bhk' => $enquiry[ 'bhk' ],
-	'entrance_direction' => $enquiry[ 'entrance_direction' ],
-	'image_path' => $enquiry[ 'image_path' ],
-	'carkpark' => Util\formatToINR( $enquiry[ 'carkpark' ] ),
-	'carpark_premium_bonus' => Util\formatToINR( $enquiry[ 'carpark_premium_bonus' ] ),
-	'carpark_type' => $enquiry[ 'carpark_type' ],
-	'club_membership' => Util\formatToINR( $enquiry[ 'club_membership' ] ),
-	'collapsibleBedroomWall' => $enquiry[ 'collapsibleBedroomWall' ],
-	'corner_flat' => $enquiry[ 'corner_flat' ],
-	'cornerflat_charge' => Util\formatToINR( $enquiry[ 'cornerflat_charge' ] ),
-	'corner_premium' => Util\formatToINR( $enquiry[ 'corner_premium' ] ),
-	'cornerDiscount' => Util\formatToINR( $enquiry[ 'cornerDiscount' ] ),
-	'rateDiscount' => Util\formatToINR( $enquiry[ 'rateDiscount' ] ),
-	'quoted_rate' => Util\formatToINR( $enquiry[ 'quoted_rate' ] ),
-	'viewDiscount' => Util\formatToINR( $enquiry[ 'viewDiscount' ] ),
-	'view_premium' => Util\formatToINR( $enquiry[ 'view_premium' ] ),
-	'email' => $enquiry[ 'email' ],
-	'floor' => $enquiry[ 'floor' ],
-	'floorise_charge' => Util\formatToINR( $enquiry[ 'floorise_charge' ] ),
-	'gardenterrace' => $enquiry[ 'gardenterrace' ],
-	'gardenterrace_charge' => Util\formatToINR( $enquiry[ 'gardenterrace_charge' ] ),
-	'generator_stp' => Util\formatToINR( $enquiry[ 'generator_stp' ] ),
-	'gst' => Util\formatToINR( $enquiry[ 'gst' ] ),
-	'legal_charges' => Util\formatToINR( $enquiry[ 'legal_charges' ] ),
-	'livingDiningSwap' => $enquiry[ 'livingDiningSwap' ],
-	'maintenance_charges' => Util\formatToINR( $enquiry[ 'maintenance_charges' ] ),
-	'mod_collapsable_bedroom_wall' => Util\formatToINR( $enquiry[ 'mod_collapsable_bedroom_wall' ] ),
-	'mod_living_dining_room_swap' => Util\formatToINR( $enquiry[ 'mod_living_dining_room_swap' ] ),
-	'mod_pooja_room' => Util\formatToINR( $enquiry[ 'mod_pooja_room' ] ),
-	'mod_store_room' => Util\formatToINR( $enquiry[ 'mod_store_room' ] ),
-	'mod_toggle_collapsable_bedroom_wall' => $enquiry[ 'mod_toggle_collapsable_bedroom_wall' ],
-	'mod_toggle_living_dining_room_swap' => $enquiry[ 'mod_toggle_living_dining_room_swap' ],
-	'mod_toggle_pooja_room' => $enquiry[ 'mod_toggle_pooja_room' ],
-	'mod_toggle_store_room' => $enquiry[ 'mod_toggle_store_room' ],
-	'mod_toggle_car_park' => $enquiry[ 'mod_toggle_car_park' ],
-	'name' => $enquiry[ 'name' ],
-	'phoneNumber' => $enquiry[ 'phoneNumber' ],
-	'poojaRoom' => $enquiry[ 'poojaRoom' ],
-	'rate' => Util\formatToINR( $enquiry[ 'rate' ] ),
-	'sft' => $enquiry[ 'sft' ],
-	'statutory_deposit' => Util\formatToINR( $enquiry[ 'statutory_deposit' ] ),
-	'storeRoom' => $enquiry[ 'storeRoom' ],
-	'total_costofapartment' => Util\formatToINR( $enquiry[ 'total_costofapartment' ] ),
-	'total_grand' => $enquiry[ 'total_grand' ],
-	// 'total_grand' => Util\formatToINR( $enquiry[ 'total_grand' ] ),
-	'total_gross' => Util\formatToINR( $enquiry[ 'total_gross' ] ),
-	'unit' => $enquiry[ 'unit' ],
-	'user' => $enquiry[ '_user' ]
-];
 
 try {
 
-	$markup = Templating\render( __DIR__ . '/templates/unit-quotation.php', $data );
-	$dompdf->loadHtml( $markup );
-	$dompdf->render();
+	$mpdf = new mPDF( 'en', 'A4', 16, 'Helvetica' );
+	$mpdf->dpi = 144;
+	$footer = [
+		// 'L' => [
+		// 	'content' => 'PAGE {PAGENO} of {nbpg}',
+		// 	'font-size' => 8,
+		// 	'font-style' => '',
+		// 	'font-family' => 'Helvetica',
+		// 	'color' => '#000000'
+		// ],
+		'C' => [
+			'content' => '',
+			'font-size' => 8,
+			'font-style' => '',
+			'font-family' => 'Helvetica',
+			'color' => '#000000'
+		],
+		// 'R' => [
+		// 	'content' => 'Generated on {DATE jS, F Y}',
+		// 	'font-size' => 8,
+		// 	'font-style' => '',
+		// 	'font-family' => 'Helvetica',
+		// 	'color' => '#000000'
+		// ],
+		'line' => 0
+	];
+	$mpdf->SetFooter( $footer, 'O' );
+	$mpdf->AddPage();
+
+	$stylesheet = file_get_contents( __DIR__ . '/templates/unit-quotation.css' );
+	$mpdf->WriteHTML( $stylesheet, 1 );
+
+	$markup = Templating\render( __DIR__ . '/templates/unit-quotation.php', $enquiry );
+	$mpdf->WriteHTML( $markup, 2 );
+
 	$output_directory = __DIR__ . '/../media/quotes/';
-	$output_filename = date( 'Y-m-d_H.i.s' ) . '__' . $data[ 'unit' ] . '__' . $data[ 'phoneNumber' ] . '.pdf';
-	file_put_contents( $output_directory . $output_filename, $dompdf->output() );
+	$output_filename = date( 'Y-m-d_H.i.s' ) . '__' . $enquiry[ 'unit' ] . '__' . $enquiry[ 'phoneNumber' ] . '.pdf';
+	$mpdf->Output( $output_directory . $output_filename, 'F' );
 
 	$response[ 'message' ] = 'Generated the Pricing Sheet';
 	$response[ 'pricingSheet' ] = $enquiry[ '_hostname' ] . '/media/quotes/' . $output_filename;
-	// $response[ 'pricingSheet' ] = $output_directory . $output_filename;
 
 	die( json_encode( $response ) );
 
