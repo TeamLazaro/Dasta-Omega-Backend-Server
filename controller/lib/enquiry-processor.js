@@ -6,26 +6,21 @@ module.exports = processEnquiry;
 
 
 // Standard libraries
-let util = require( "util" );
-let child_process = require( "child_process" );
 let fs = require( "fs" );
 
 // Third-party packages
-let qs = require( "qs" );
-let axios = require( "axios" );
+// let axios = require( "axios" );
 
 // Our custom imports
 let enquiries = require( "../../data/enquiries.json" );
-let lib = require( "./other.js" );
+let userFlows = require( "./user-flows.js" );
+// let lib = require( "./other.js" );
 
 /*
  * Constants declarations
  */
-let rootDir = __dirname + "/../../";
+// let rootDir = __dirname + "/../../";
 let logFileName = __dirname + "/../../data/enquiries.json";
-
-// Promisify-ing the exec function so that it plays well with the async/await syntax
-let exec = util.promisify( child_process.exec );
 
 async function processEnquiry ( cb ) {
 
@@ -39,38 +34,11 @@ async function processEnquiry ( cb ) {
 	}
 	enquiry.errors = "";
 
-	// Generate the pricing sheet
-	enquiry.description = "Rendering the pricing sheet";
-	try {
-		let apiInput = qs.stringify( { enquiry: enquiry } );
-		let command = "php generate-document/index.php '" + apiInput + "'";
-		let { stdout } = await exec( command, { cwd: rootDir } );
-		let response = JSON.parse( stdout );
-		enquiry.pricingSheet = encodeURI( response.pricingSheet );
-	} catch ( e ) {
-		enquiry.errors += "[Quote]\n" + e.stderr + "\n\n";
+	if ( enquiry._user == "executive" ) {
+		enquiry = await userFlows.executive( enquiry );
 	}
-
-	// Send an e-mail to the customer
-	if ( enquiry._user != "executive" ) {
-		enquiry.description = "Sending an e-mail to the customer.";
-		try {
-			let apiInput = qs.stringify( { enquiry: enquiry } );
-			let command = "php end-points/php-mailer/index.php '" + apiInput + "'";
-			await exec( command, { cwd: rootDir } );
-		} catch ( e ) {
-			enquiry.errors += "[Mailer]\n" + e.stderr + "\n\n";
-		}
-	}
-
-	// Ingest the enquiry into the CRM
-	enquiry.description = "Ingesting the enquiry into the CRM.";
-	try {
-		let apiInput = qs.stringify( { enquiry: enquiry } );
-		let command = "php end-points/zoho-crm/index.php '" + apiInput + "'";
-		let response = await exec( command, { cwd: rootDir } );
-	} catch ( e ) {
-		enquiry.errors += "[CRM]\n" + e.stderr + "\n\n";
+	else {
+		enquiry = await userFlows.regular( enquiry );
 	}
 
 	// Notify us if there were any errors

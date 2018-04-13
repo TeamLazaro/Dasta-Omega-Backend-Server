@@ -1,7 +1,7 @@
 <?php
 
 // Invalidate the cookie
-setcookie( 'auth', '', time() - 3600, '/' );
+setcookie( 'auth', '', time() - 999, '/' );
 
 // Re-direct back to the front-end, else leave a message
 if ( ! empty( $_GET[ 'redirect' ] ) ) {

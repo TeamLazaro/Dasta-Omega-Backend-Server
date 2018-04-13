@@ -42,6 +42,7 @@ router.use( cookieParser() );
 router.use( urlencodedParser );
 router.use( jsonParser );
 
+
 router.post( "/enquiries", function ( req, res ) {
 
 	// res.header( "Access-Control-Allow-Origin", "*" );
@@ -49,34 +50,20 @@ router.post( "/enquiries", function ( req, res ) {
 	res.header( "Access-Control-Allow-Credentials", "true" );
 
 	/*
-	 * Validate credentials if they are passed
+	 *
+	 * Validate the request body
+	 * If executive fields are set, then do not proceed.
+	 *
 	 */
-	var credentials = { };
-	if ( req.cookies.auth ) {
-		try {
-			credentials = JSON.parse( base64.decode( req.cookies.auth ) );
-
-			// Check if the user is an executive
-			var users = JSON.parse( fs.readFileSync( credentialsFileName ) );
-			var user = users.find( function ( user ) {
-				return user.identifier == credentials.identifier
-			} );
-			var userIsLegit = !! user;
-
-			// Check if the credentials are still valid
-			var tokenValidity = credentials.timestamp && ( (datetime.getUnixTimestamp() / 1000 - credentials.timestamp ) < 3600 );
-
-			credentials.areValid = userIsLegit && tokenValidity;
-		} catch ( e ) {
-			res.status( 401 );
-			res.end();
-			return;
-		}
+	var anExecutiveFieldHasBeenSet = enquiryFields.executive.some( function ( field ) {
+		return this[ field ]
+	}, req.body );
+	if ( anExecutiveFieldHasBeenSet ) {
+		res.status( 401 );
+		res.end( "You do not have permissions to discount the quote. Please log in." );
+		return;
 	}
 
-	/*
-	 * Validate the request body
-	 */
 	// var requiredFieldsPresent = enquiryFields.regular.every( function ( key ) {
 	// 	return key in req.query;
 	// } );
@@ -104,7 +91,68 @@ router.post( "/enquiries", function ( req, res ) {
 		_when: datetime.getDatetimeStamp(),
 		_state: "processing",
 		_hostname: `${req.protocol}://${req.headers[ "x-forwarded-host" ]}`,
-		_user: credentials.areValid ? "executive" : "regular",
+		_user: "regular",
+		...req.body
+		// ...enquiryFieldsOfConcern
+	};
+	enquiries.push( enquiry );
+	fs.writeFileSync( logFileName, JSON.stringify( enquiries ) );
+
+	// Respond back
+	res.json( { message: "We're processing the enquiry." } );
+	res.end();
+
+} );
+
+
+
+router.post( "/quotes", function ( req, res ) {
+
+	// res.header( "Access-Control-Allow-Origin", "*" );
+	res.header( "Access-Control-Allow-Origin", req.headers.origin );
+	res.header( "Access-Control-Allow-Credentials", "true" );
+
+	/*
+	 * Validate credentials if they are passed
+	 */
+	var credentials = { };
+	if ( req.cookies.auth ) {
+		try {
+			credentials = JSON.parse( base64.decode( req.cookies.auth ) );
+
+			// Check if the user is an executive
+			var users = JSON.parse( fs.readFileSync( credentialsFileName ) );
+			var user = users.find( function ( user ) {
+				return user.identifier == credentials.identifier
+			} );
+			var userIsLegit = !! user;
+
+			// Check if the credentials are still valid
+			var tokenValidity = credentials.expires && ( ( datetime.getUnixTimestamp() / 1000 ) < credentials.expires );
+
+			credentials.areValid = userIsLegit && tokenValidity;
+		} catch ( e ) {
+			res.status( 401 );
+			res.end();
+			return;
+		}
+	}
+
+	if ( ! credentials.areValid ) {
+		res.status( 401 );
+		res.end( "You do not have permissions to create a quote. Please log in." );
+		return;
+	}
+
+	var enquiry = {
+		_id: datetime.getUnixTimestamp(),
+		_when: datetime.getDatetimeStamp(),
+		_state: "processing",
+		_hostname: `${req.protocol}://${req.headers[ "x-forwarded-host" ]}`,
+		_user: "executive",
+		_executiveId: user.identifier,
+		_executiveName: user.name,
+		_executiveEmail: user.email,
 		...req.body
 		// ...enquiryFieldsOfConcern
 	};

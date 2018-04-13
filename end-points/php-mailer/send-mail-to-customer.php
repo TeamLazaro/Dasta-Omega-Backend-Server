@@ -52,7 +52,7 @@ $envelope = [
 		'name' => $enquiry[ 'name' ]
 	],
 	'subject' => 'Pricing Sheet for #' . $enquiry[ 'unit' ],
-	'body' => Templating\render( __DIR__ . '/templates/mail.php', $enquiry ),
+	'body' => Templating\render( __DIR__ . '/templates/from-dasta.php', $enquiry ),
 	'attachment' => [
 		'name' => 'Price sheet for #' . $enquiry[ 'unit' ] . '.pdf',
 		'url' => $enquiry[ 'pricingSheet' ]

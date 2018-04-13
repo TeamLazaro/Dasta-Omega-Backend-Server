@@ -30,7 +30,9 @@ function getLead ( $phoneNumber/*, $email*/ ) {
 					// ->orWhere( 'Email', $email )
 					->request();
 		$records = array_values( $records );
-	} catch ( Exception | ZohoException\NoDataException $e ) {
+	} catch ( ZohoException\NoDataException $e ) {
+		$records = [ ];
+	} catch ( Exception $e ) {
 		$records = [ ];
 	}
 
@@ -64,7 +66,9 @@ function getProspect ( $phoneNumber/*, $email*/ ) {
 					// ->orWhere( 'Email', $email )
 					->request();
 		$records = array_values( $records );
-	} catch ( Exception | ZohoException\NoDataException $e ) {
+	} catch ( ZohoException\NoDataException $e ) {
+		$records = [ ];
+	} catch ( Exception $e ) {
 		$records = [ ];
 	}
 

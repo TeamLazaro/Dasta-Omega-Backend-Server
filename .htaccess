@@ -18,9 +18,19 @@ RewriteEngine On
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?get-lead$ /front-end-helpers/lead-validator/index.php [L,NC]
 
+# Get prospect based on a given UID
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?get-prospect-by-uid$ /front-end-helpers/validate-prospect-by-uid/index.php [L,NC]
+
+# Create a lead given a phone number
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?create-lead$ /front-end-helpers/create-lead/index.php [L,NC]
+
 # Make an enquiry
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?enquiries$ http://localhost:9999/enquiries [P,L]
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?quotes$ http://localhost:9999/quotes [P,L]
 
 # Register
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f

@@ -1,7 +1,7 @@
 <?php
 
-ini_set( 'display_errors', 0 );
-ini_set( 'error_reporting', E_ALL );
+ini_set( "display_errors", 'stderr' );
+ini_set( "error_reporting", E_ALL );
 
 header( 'Access-Control-Allow-Origin: *' );
 
@@ -15,36 +15,33 @@ ignore_user_abort( true );
 // do not let this script timeout
 set_time_limit( 0 );
 
+
+// Set the response body format type
 header( 'Content-Type: application/json' );
 
-require __DIR__ . '/lib/crm.php';
 
-$phoneNumber = $_REQUEST[ 'phoneNumber' ];
+require_once __DIR__ . '/lib/crm.php';
+
+
+$uid = $_REQUEST[ 'uid' ];
 
 try {
 
 	// Search for a matching prospect
-	$prospect = CRM\getProspect( $phoneNumber );
+	$prospect = CRM\getProspectByUID( $uid );
 	if ( ! empty( $prospect ) ) {
 		$clientResponse[ 'data' ] = [
+			'uid' => $uid,
 			'name' => $prospect[ 'Full Name' ] ?? '',
+			'firstName' => $prospect[ 'First Name' ] ?? '',
+			'lastName' => $prospect[ 'Last Name' ] ?? '',
 			'email' => $prospect[ 'Email' ] ?? ''
 		];
 		die( json_encode( $clientResponse ) );
 	}
 
-	// If no prospect was found, search for a matching lead
-	$lead = CRM\getLead( $phoneNumber );
-	if ( ! empty( $lead ) ) {
-		$clientResponse[ 'data' ] = [
-			'name' => $lead[ 'Full Name' ] ?? '',
-			'email' => $lead[ 'Email' ] ?? ''
-		];
-		die( json_encode( $clientResponse ) );
-	}
-
 	// If no prospect or lead was found
-	$clientResponse[ 'message' ] = 'No matching lead or prospect was found.';
+	$clientResponse[ 'message' ] = 'No prospect with the given UID was found.';
 	http_response_code( 500 );
 	die( json_encode( $clientResponse ) );
 

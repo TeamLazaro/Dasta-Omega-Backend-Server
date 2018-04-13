@@ -38,9 +38,11 @@ $enquiry = $input[ 'enquiry' ];
  *
  * Here's what this script does:
  * 	1. Check if a prospect matching the given details exists.
- * 	2. If it does, then add the pricing sheet as an attachment. END.
+ * 	2.1. If it does, then update the lead with new information.
+ * 	2.2. Then add the pricing sheet as an attachment. END.
  * 	3. If it does not, then check if a lead matching the given details exists.
- * 	4. If it does, then add the pricing sheet as an attachment. END.
+ * 	4.1. If it does, then update the lead with new information.
+ * 	4.2. Then add the pricing sheet as an attachment. END.
  * 	5. If it does not, then create a new lead with the given details.
  * 	6. Append the pricing sheet as an attachment. END.
  *
@@ -56,9 +58,23 @@ $pricingSheetURL = $enquiry[ 'pricingSheet' ];
 
 try {
 
+	// Split the full-name into a first name and a last name
+	$name = preg_replace( '/\s+/', ' ', trim( $enquiry[ 'name' ] ) );
+	$names = preg_split( '/\s/', $name );
+	$lastName = array_pop( $names );
+	$firstName = implode( ' ', $names );
+
+	$personInfo = [
+		'First Name' => $firstName,
+		'Last Name' => $lastName,
+		'Email' => $enquiry[ 'email' ],
+		// 'Phone' => $enquiry[ 'phoneNumber' ]
+	];
+
 	$prospect = CRM\getProspect( $phoneNumber );
 
 	if ( $prospect ) {
+		CRM\updateProspect( $prospect[ 'CONTACTID' ], $personInfo );
 		CRM\uploadFileToProspect( $prospect[ 'CONTACTID' ], $pricingSheetURL );
 		$clientResponse[ 'message' ] = 'Attached pricing sheet to existing prospect on Zoho.';
 		if ( $enquiry[ '_user' ] == 'executive' ) {
@@ -70,6 +86,7 @@ try {
 	// If prospect did not exist
 	$lead = CRM\getLead( $phoneNumber );
 	if ( $lead ) {
+		CRM\updateLead( $lead[ 'LEADID' ], $personInfo );
 		CRM\uploadFileToLead( $lead[ 'LEADID' ], $pricingSheetURL );
 		$clientResponse[ 'message' ] = 'Attached pricing sheet to existing lead on Zoho.';
 		die( json_encode( $clientResponse ) );
@@ -81,20 +98,13 @@ try {
 	 * and append the pricing sheet to that record
 	 *
 	 */
-	// Split the full-name into a first name and a last name
-	$name = preg_replace( '/\s+/', ' ', trim( $enquiry[ 'name' ] ) );
-	$names = preg_split( '/\s/', $name );
-	$lastName = array_pop( $names );
-	$firstName = implode( ' ', $names );
 
-	$leadInfo = [
+	$leadInfo = array_merge( $personInfo, [
 		'Lead Source' => $enquiry[ 'source' ],
 		'Phone' => $enquiry[ 'phoneNumber' ],
-		// 'Email' => $enquiry[ 'email' ],
-		'First Name' => $firstName,
-		'Last Name' => $lastName,
-		'Budget' => $enquiry[ 'bhk' ]
-	];
+		'Budget' => $enquiry[ 'bhk' ],
+		'Discovery Source' => $enquiry[ 'discoverySource' ]
+	] );
 
 	$leadId = CRM\createLead( $leadInfo );
 	CRM\uploadFileToLead( $leadId, $enquiry[ 'pricingSheet' ] );

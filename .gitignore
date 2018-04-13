@@ -9,3 +9,6 @@
 # The media folder
 media
 *.pdf
+
+# Data
+data

@@ -2,6 +2,7 @@
 
 $provider = require __DIR__ . '/provider.php';
 
+$frontendAddress = 'http://139.59.80.92/';
 $authCode = $_GET[ 'code' ] ?? 0;
 
 if ( $authCode ) {
@@ -22,30 +23,41 @@ if ( $authCode ) {
 		$userEmail = $ownerDetails->getEmail();
 
 		// Check if user exists
-		$users = json_decode( file_get_contents( __DIR__ . '/../../data/users.json' ), true );
-		$userIds = array_column( $users, 'identifier' );
-		if ( in_array( $userId, $userIds ) ) {
+		$user = getUser( $userId );
+		if ( $user ) {
 			if ( ! isset( $_COOKIE[ 'auth' ] ) ) {
 				$cookie = base64_encode( json_encode( [
-					'timestamp' => time(),
+					'expires' => time() + 60 * 60 * 9,
 					'identifier' => $userId,
+					'name' => $user[ 'name' ],
+					'email' => $user[ 'email' ]
 				] ) );
-				setcookie( 'auth', $cookie, time() + 3600, '/' );
+				// Set a cookie to be valid for 9 hours
+				setcookie( 'auth', $cookie, time() + 60 * 60 * 9, '/' );
 			}
-			$queryString = http_build_query( [
-				'role' => 'executive',
-				'user' => $userFirstName
-			], null, '&',  PHP_QUERY_RFC3986 );
-			header( 'Location: http://139.59.80.92/pricing?' . $queryString );
+			header( 'Location: ' . $frontendAddress . 'auth-callback/' . '?t=' . $cookie );
 		} else {
-			header( 'Location: http://139.59.80.92/pricing?r=e' );
+			header( 'Location: ' . $frontendAddress . 'quote?r=e' );
 		}
 
 	} catch ( Exception $e ) {
 
 		// Failed to get user details
-		header( 'Location: http://139.59.80.92/pricing?r=' . $e->getMessage() );
+		header( 'Location: ' . $frontendAddress . 'quote?r=' . $e->getMessage() );
 
 	}
+
+}
+
+
+
+function getUser ( $id ) {
+
+	$users = json_decode( file_get_contents( __DIR__ . '/../../data/users.json' ), true );
+	foreach ( $users as $user ) {
+		if ( $user[ 'identifier' ] == $id ) return $user;
+	}
+
+	return false;
 
 }

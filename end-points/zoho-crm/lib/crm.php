@@ -41,7 +41,7 @@ function getLead ( $phoneNumber/*, $email*/ ) {
 	}
 
 	if ( count( $records ) > 1 ) {
-		throw new Exception( 'More than one lead found with the provided phone number and email.' );
+		throw new \Exception( 'More than one lead found with the provided phone number and email.' );
 	}
 
 	$existingLead = [
@@ -75,7 +75,40 @@ function getProspect ( $phoneNumber/*, $email*/ ) {
 	}
 
 	if ( count( $records ) > 1 ) {
-		throw new Exception( 'More than one prospect found with the provided phone number and email.' );
+		throw new \Exception( 'More than one prospect found with the provided phone number and email.' );
+	}
+
+	$existingProspect = [
+		'SMOWNERID' => $records[ 0 ]->data[ 'SMOWNERID' ],
+		'CONTACTID' => $records[ 0 ]->data[ 'CONTACTID' ]
+	];
+
+	return $existingProspect;
+
+}
+
+function getProspectByUID ( $uid ) {
+
+	global $authToken;
+	$zohoClient = new ZohoCRMClient( 'Contacts', $authToken, 'com', 0 );
+
+	try {
+		$records = $zohoClient->searchRecords()
+					->where( 'UID', $uid )
+					->request();
+		$records = array_values( $records );
+	} catch ( ZohoException\NoDataException $e ) {
+		$records = [ ];
+	} catch ( Exception $e ) {
+		$records = [ ];
+	}
+
+	if ( empty( $records ) ) {
+		return null;
+	}
+
+	if ( count( $records ) > 1 ) {
+		throw new \Exception( 'More than one prospect found with the given UID.' );
 	}
 
 	$existingProspect = [
@@ -103,7 +136,7 @@ function uploadFileToLead ( $leadId, $pricingSheetURL ) {
 				->request();
 		// $apiResponse = array_values( $response );
 	} catch ( Exception $e ) {
-		throw new Exception( 'Could not upload file to the lead.' );
+		throw new \Exception( 'Could not upload file to the lead.' );
 	}
 
 	return $apiResponse;
@@ -126,7 +159,7 @@ function uploadFileToProspect ( $prospectId, $pricingSheetURL ) {
 				->request();
 		// $apiResponse = array_values( $apiResponse );
 	} catch ( Exception $e ) {
-		throw new Exception( 'Could not upload file to the prospect.' );
+		throw new \Exception( 'Could not upload file to the prospect.' );
 	}
 
 	return $apiResponse;
@@ -146,10 +179,58 @@ function createLead ( $data ) {
 					->request();
 		$apiResponse = array_values( $apiResponse );
 	} catch ( Exception $e ) {
-		throw new Exception( 'Could not create a new lead.' );
+		throw new \Exception( 'Could not create a new lead.' );
 	}
 
 	return $apiResponse[ 0 ]->id;
+
+}
+
+function updateLead ( $id, $data ) {
+
+	global $authToken;
+	$zohoClient = new ZohoCRMClient( 'Leads', $authToken, 'com', 0 );
+
+	try {
+		$apiResponse = $zohoClient->updateRecords()
+					->addRecord( array_merge( $data, [ 'Id' => $id ] ) )
+					->onDuplicateUpdate()
+					->request();
+		$apiResponse = array_values( $apiResponse )[ 0 ];
+		if ( ! empty( $apiResponse->error ) ) {
+			if ( ! empty( $apiResponse->error->description ) ) {
+				throw new \Exception( $apiResponse->error->description );
+			}
+		}
+	} catch ( Exception $e ) {
+		throw new \Exception( 'Could not update the lead.' );
+	}
+
+	return $apiResponse;
+
+}
+
+function updateProspect ( $id, $data ) {
+
+	global $authToken;
+	$zohoClient = new ZohoCRMClient( 'Contacts', $authToken, 'com', 0 );
+
+	try {
+		$apiResponse = $zohoClient->updateRecords()
+					->addRecord( array_merge( $data, [ 'Id' => $id ] ) )
+					->onDuplicateUpdate()
+					->request();
+		$apiResponse = array_values( $apiResponse )[ 0 ];
+		if ( ! empty( $apiResponse->error ) ) {
+			if ( ! empty( $apiResponse->error->description ) ) {
+				throw new \Exception( $apiResponse->error->description );
+			}
+		}
+	} catch ( Exception $e ) {
+		throw new \Exception( 'Could not update the prospect.' );
+	}
+
+	return $apiResponse;
 
 }
 
@@ -170,7 +251,7 @@ function createQuote ( $prospect, $enquiry ) {
 			$quoteName .= ' + Car Park Upgrade';
 		}
 	}
-	$quoteName .= ' [' . $enquiry[ 'phoneNumber' ] . ']';
+	$quoteName .= ' [' . $enquiry[ 'uid' ] . ']';
 
 	$validTill = date( 'Y-m-d', strtotime( '+ 14 days' ) );
 	$price = $enquiry[ 'total_grand' ];
@@ -194,7 +275,7 @@ function createQuote ( $prospect, $enquiry ) {
 				->request();
 		$apiResponse = array_values( $apiResponse );
 	} catch ( Exception $e ) {
-		throw new Exception( 'Could not create the quote.' );
+		throw new \Exception( 'Could not create the quote.' );
 	}
 
 	/*
@@ -209,7 +290,7 @@ function createQuote ( $prospect, $enquiry ) {
 			->attachLink( $pricingSheetURL )
 			->request();
 	} catch ( Exception $e ) {
-		throw new Exception( 'Could not attach the pricing sheet to the quote.' );
+		throw new \Exception( 'Could not attach the pricing sheet to the quote.' );
 	}
 
 	return $quoteId;

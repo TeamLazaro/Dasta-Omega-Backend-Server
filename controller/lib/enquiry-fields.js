@@ -51,7 +51,7 @@ module.exports = {
 		"source"
 	],
 	executive: [
-		"user",
+		// "user",
 		"rateDiscount",
 		"cornerDiscount",
 		"viewDiscount"
