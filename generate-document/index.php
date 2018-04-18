@@ -77,7 +77,11 @@ try {
 	$mpdf->WriteHTML( $markup, 2 );
 
 	$output_directory = __DIR__ . '/../media/quotes/';
-	$output_filename = date( 'Y-m-d_H.i.s' ) . '__' . $enquiry[ 'unit' ] . '__' . $enquiry[ 'phoneNumber' ] . '.pdf';
+	// $output_filename = date( 'Y-m-d_H.i.s' ) . '__' . $enquiry[ 'unit' ] . '__' . $enquiry[ 'phoneNumber' ] . '.pdf';
+	$output_filename = $enquiry[ 'unit' ] . '@' . $enquiry[ 'quoted_rate' ];
+	if ( ! empty( $enquiry[ 'uid' ] ) ) $output_filename .= ' [' . $enquiry[ 'uid' ] . ']';
+	$output_filename .= ' ' . $enquiry[ '_when' ] . '.pdf';
+
 	$mpdf->Output( $output_directory . $output_filename, 'F' );
 
 	$response[ 'message' ] = 'Generated the Pricing Sheet';
