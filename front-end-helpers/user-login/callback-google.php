@@ -2,7 +2,7 @@
 
 $provider = require __DIR__ . '/provider.php';
 
-$frontendAddress = 'http://139.59.80.92/';
+$frontendAddress = 'http://dasta.in/';
 $authCode = $_GET[ 'code' ] ?? 0;
 
 if ( $authCode ) {
