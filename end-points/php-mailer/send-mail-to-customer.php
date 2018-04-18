@@ -51,7 +51,7 @@ $envelope = [
 		'email' => $enquiry[ 'email' ],
 		'name' => $enquiry[ 'name' ]
 	],
-	'subject' => 'Pricing Sheet for #' . $enquiry[ 'unit' ],
+	'subject' => 'Hi ' . $enquiry[ 'name' ] . ', this is a quote for unit #' . $enquiry[ 'unit' ] . ' @ ' . $enquiry[ 'quoted_rate' ] . ' made on ' . $enquiry[ '_when' ],
 	'body' => Templating\render( __DIR__ . '/templates/from-dasta.php', $enquiry ),
 	'attachment' => [
 		'name' => 'Price sheet for #' . $enquiry[ 'unit' ] . '.pdf',

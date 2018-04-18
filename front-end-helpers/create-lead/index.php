@@ -24,10 +24,11 @@ require_once __DIR__ . '/lib/crm.php';
 
 
 $phoneNumber = $_REQUEST[ 'phoneNumber' ];
+$unit = $_REQUEST[ 'unit' ];
 $leadData = [
 	'Lead Status' => 'Fresh',
 	'Lead Source' => 'Web Pricing',
-	'First Name' => 'pricing_apt',
+	'First Name' => 'Lead for #' . $unit,
 	'Last Name' => date( 'Y-m-d-H-i-s' ),
 	'Phone' => $phoneNumber
 ];

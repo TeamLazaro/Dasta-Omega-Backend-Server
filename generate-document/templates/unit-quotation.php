@@ -116,7 +116,7 @@ $keyplan = __DIR__ . '/../../media/keyplans/keyplan-0' . substr( $unit . '', -1 
 							<td class="text-right"><?php echo formatToINR( $mod_living_dining_room_swap ) ?></td>
 						</tr>
 						<tr>
-							<td><?php if ( intval( $floor ) <= 3 ) { echo 'Upgraded to a covered car park'; } else { echo 'Downgraded to a semi-covered car park'; } ?></td>
+							<td><?php if ( $carpark_type == 'sc' ) { echo 'Upgraded to a covered car park'; } else { echo 'Downgraded to a semi-covered car park'; } ?></td>
 							<td class="text-right"><?php echo formatToINR( $carpark_premium_bonus ) ?></td>
 						</tr>
 					</tbody>

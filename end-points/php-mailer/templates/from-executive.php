@@ -40,7 +40,7 @@
 				  	<tr>
 						<td valign="middle" align="center" width="20">&nbsp;</td>
 				  		<td valign="middle" align="center" height="100">
-				  			<span style=" font-size: 36px; line-height: 52px;">Hi, <?php echo $name ?></span>
+				  			<span style=" font-size: 36px; line-height: 52px;">Dear <?php echo $name ?></span>
 				  		</td>
 						<td valign="middle" align="center" width="20">&nbsp;</td>
 				  	</tr>

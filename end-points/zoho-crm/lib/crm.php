@@ -245,7 +245,7 @@ function createQuote ( $prospect, $enquiry ) {
 	/*
 	 * Create the quote
 	 */
-	$quoteName = $enquiry[ 'unit' ] . ' @ ' . $enquiry[ 'quoted_rate' ];
+	$quoteName = $enquiry[ 'unit' ] . ' [' . $enquiry[ 'uid' ] . ']';
 	if ( $enquiry[ 'carpark_premium_bonus' ] ) {
 		if ( $enquiry[ 'carpark_type' ] == 'c' ) {
 			$quoteName .= ' + Car Park Downgrade';
