@@ -26,6 +26,10 @@ RewriteRule ^/?get-prospect-by-uid$ /front-end-helpers/validate-prospect-by-uid/
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?create-lead$ /front-end-helpers/create-lead/index.php [L,NC]
 
+# Get the current date and time stamp
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?get-date-and-time$ /front-end-helpers/date-and-time/index.php [L,NC]
+
 # Make an enquiry
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?enquiries$ http://localhost:9999/enquiries [P,L]

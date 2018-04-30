@@ -18,5 +18,7 @@ var dateTimeFormat = new Intl.DateTimeFormat(
 );
 
 function getDatetimeStamp () {
-	return dateTimeFormat.format( new Date() );
+	return dateTimeFormat.format( new Date() )
+		.replace( /[/:]/g, "-" )
+		.replace( /,/g, "" )
 }
