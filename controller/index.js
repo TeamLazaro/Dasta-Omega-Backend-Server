@@ -86,9 +86,11 @@ router.post( "/enquiries", function ( req, res ) {
 	// 		return acc;
 	// 	}, enquiryFieldsOfConcern );
 	// }
+	let _when = req.body.timestamp;
+	delete req.body.timestamp;
 	var enquiry = {
 		_id: datetime.getUnixTimestamp(),
-		_when: datetime.getDatetimeStamp(),
+		_when,
 		_state: "processing",
 		_hostname: `${req.protocol}://${req.headers[ "x-forwarded-host" ]}`,
 		_user: "regular",
@@ -144,9 +146,11 @@ router.post( "/quotes", function ( req, res ) {
 		return;
 	}
 
+	let _when = req.body.timestamp;
+	delete req.body.timestamp;
 	var enquiry = {
 		_id: datetime.getUnixTimestamp(),
-		_when: datetime.getDatetimeStamp(),
+		_when,
 		_state: "processing",
 		_hostname: `${req.protocol}://${req.headers[ "x-forwarded-host" ]}`,
 		_user: "executive",

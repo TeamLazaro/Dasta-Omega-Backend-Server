@@ -56,7 +56,7 @@ try {
 	if ( $prospect ) {
 		$pricingSheetURL = $enquiry[ 'pricingSheet' ];
 		CRM\uploadFileToProspect( $prospect[ 'CONTACTID' ], $pricingSheetURL );
-		CRM\createQuote( $prospect, $enquiry );
+		CRM\createQuote( $prospect, $enquiry, $enquiry[ 'quote_name' ]  );
 		$clientResponse[ 'message' ] = 'Created a new quote for the prospect.';
 		die( json_encode( $clientResponse ) );
 	}

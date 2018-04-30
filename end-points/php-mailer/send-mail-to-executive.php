@@ -51,7 +51,7 @@ $envelope = [
 		'email' => $enquiry[ '_executiveEmail' ],
 		'name' => $enquiry[ '_executiveName' ]
 	],
-	'subject' => 'Dear ' . $enquiry[ 'name' ] . ', this is a quote for unit #' . $enquiry[ 'unit' ] . ' @ ' . $enquiry[ 'quoted_rate' ] . ' made on ' . $enquiry[ '_when' ],
+	'subject' => $enquiry[ 'mail_to_executive_subject' ],
 	'body' => Templating\render( __DIR__ . '/templates/from-executive.php', $enquiry ),
 	'attachment' => [
 		'name' => 'Price sheet for #' . $enquiry[ 'unit' ] . '.pdf',

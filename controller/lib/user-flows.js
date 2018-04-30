@@ -42,7 +42,7 @@ async function regular ( enquiry ) {
 		let response = JSON.parse( stdout );
 		enquiry.pricingSheet = encodeURI( response.pricingSheet );
 	} catch ( e ) {
-		enquiry.errors += "[Pricing Sheet]\n" + e.stderr + "\n\n";
+		enquiry.errors += "[Pricing Sheet]\n" + e.stdout + "\n" + e.stderr + "\n\n";
 	}
 
 	// Send an e-mail to the customer

@@ -194,7 +194,6 @@ function updateLead ( $id, $data ) {
 	try {
 		$apiResponse = $zohoClient->updateRecords()
 					->addRecord( array_merge( $data, [ 'Id' => $id ] ) )
-					->onDuplicateUpdate()
 					->triggerWorkflow()
 					->request();
 		$apiResponse = array_values( $apiResponse )[ 0 ];
@@ -219,7 +218,6 @@ function updateProspect ( $id, $data ) {
 	try {
 		$apiResponse = $zohoClient->updateRecords()
 					->addRecord( array_merge( $data, [ 'Id' => $id ] ) )
-					->onDuplicateUpdate()
 					->triggerWorkflow()
 					->request();
 		$apiResponse = array_values( $apiResponse )[ 0 ];
@@ -236,7 +234,7 @@ function updateProspect ( $id, $data ) {
 
 }
 
-function createQuote ( $prospect, $enquiry ) {
+function createQuote ( $prospect, $enquiry, $quoteName ) {
 
 	global $authToken;
 	$zohoClient = new ZohoCRMClient( 'Deals', $authToken, 'com', 0 );
@@ -245,16 +243,6 @@ function createQuote ( $prospect, $enquiry ) {
 	/*
 	 * Create the quote
 	 */
-	$quoteName = $enquiry[ 'unit' ] . ' [' . $enquiry[ 'uid' ] . ']';
-	if ( $enquiry[ 'carpark_premium_bonus' ] ) {
-		if ( $enquiry[ 'carpark_type' ] == 'c' ) {
-			$quoteName .= ' + Car Park Downgrade';
-		} else {
-			$quoteName .= ' + Car Park Upgrade';
-		}
-	}
-	$quoteName .= ' [' . $enquiry[ 'uid' ] . ']';
-
 	$validTill = date( 'Y-m-d', strtotime( '+ 14 days' ) );
 	$price = $enquiry[ 'total_grand' ];
 	$email = $enquiry[ 'email' ];
