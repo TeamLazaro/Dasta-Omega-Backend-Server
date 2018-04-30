@@ -194,6 +194,7 @@ function updateLead ( $id, $data ) {
 	try {
 		$apiResponse = $zohoClient->updateRecords()
 					->addRecord( array_merge( $data, [ 'Id' => $id ] ) )
+					->onDuplicateUpdate()
 					->triggerWorkflow()
 					->request();
 		$apiResponse = array_values( $apiResponse )[ 0 ];
@@ -218,6 +219,7 @@ function updateProspect ( $id, $data ) {
 	try {
 		$apiResponse = $zohoClient->updateRecords()
 					->addRecord( array_merge( $data, [ 'Id' => $id ] ) )
+					->onDuplicateUpdate()
 					->triggerWorkflow()
 					->request();
 		$apiResponse = array_values( $apiResponse )[ 0 ];
