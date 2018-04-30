@@ -33,7 +33,9 @@ if ( $authCode ) {
 			'provider' => 'Google',
 			'identifier' => $userId,
 			'name' => $userName,
-			'email' => $userEmail
+			'email' => $userEmail,
+			'role' => 'executive',
+			'suspended' => false
 		];
 		file_put_contents( $userDatabase, json_encode( $users ) );
 

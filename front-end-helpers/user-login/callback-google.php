@@ -24,21 +24,24 @@ if ( $authCode ) {
 
 		// Check if user exists
 		$user = getUser( $userId );
-		if ( $user ) {
-			if ( ! isset( $_COOKIE[ 'auth' ] ) ) {
-				$cookie = base64_encode( json_encode( [
-					'expires' => time() + 60 * 60 * 9,
-					'identifier' => $userId,
-					'name' => $user[ 'name' ],
-					'email' => $user[ 'email' ]
-				] ) );
-				// Set a cookie to be valid for 9 hours
-				setcookie( 'auth', $cookie, time() + 60 * 60 * 9, '/' );
-			}
-			header( 'Location: ' . $frontendAddress . 'auth-callback/' . '?t=' . $cookie );
-		} else {
-			header( 'Location: ' . $frontendAddress . 'quote?r=e' );
+		// If the user does not exist, or is suspended, do not proceed
+		if ( empty( $user ) || $user[ 'suspended' ] ) {
+			header( 'Location: ' . $frontendAddress . 'quote?r=400' );
 		}
+
+		// If the user exists and is not suspended
+		if ( ! isset( $_COOKIE[ 'auth' ] ) ) {
+			$cookie = base64_encode( json_encode( [
+				'expires' => time() + 60 * 60 * 9,
+				'identifier' => $userId,
+				'name' => $user[ 'name' ],
+				'email' => $user[ 'email' ],
+				'role' => $user[ 'role' ]
+			] ) );
+			// Set a cookie to be valid for 9 hours
+			setcookie( 'auth', $cookie, time() + 60 * 60 * 9, '/' );
+		}
+		header( 'Location: ' . $frontendAddress . 'auth-callback/' . '?t=' . $cookie );
 
 	} catch ( Exception $e ) {
 
