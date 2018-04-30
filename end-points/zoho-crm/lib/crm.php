@@ -175,7 +175,7 @@ function createLead ( $data ) {
 		$apiResponse = $zohoClient->insertRecords()
 					->addRecord( $data )
 					->onDuplicateError()
-					// ->triggerWorkflow()
+					->triggerWorkflow()
 					->request();
 		$apiResponse = array_values( $apiResponse );
 	} catch ( Exception $e ) {
