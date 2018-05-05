@@ -71,7 +71,7 @@ $keyplan = __DIR__ . '/../../media/keyplans/keyplan-0' . substr( $unit . '', -1 
 						</tr>
 						<tr>
 							<td>Corner flat premium charge</td>
-							<td class="text-right"><?php echo formatToINR( $corner_premium ) ?></td>
+							<td class="text-right"><?php echo formatToINR( $cornerflat_charge ) ?></td>
 						</tr>
 					</tbody>
 				</table>
