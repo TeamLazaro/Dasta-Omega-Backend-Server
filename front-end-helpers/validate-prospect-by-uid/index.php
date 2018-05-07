@@ -35,6 +35,7 @@ try {
 			'name' => $prospect[ 'Full Name' ] ?? '',
 			'firstName' => $prospect[ 'First Name' ] ?? '',
 			'lastName' => $prospect[ 'Last Name' ] ?? '',
+			'coApplicantName' => $prospect[ 'Co-applicant Name' ] ?? '',
 			'email' => $prospect[ 'Email' ] ?? ''
 		];
 		die( json_encode( $clientResponse ) );

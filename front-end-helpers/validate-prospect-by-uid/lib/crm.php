@@ -47,6 +47,7 @@ function getProspectByUID ( $uid ) {
 		'Full Name' => $records[ 0 ]->data[ 'Full Name' ] ?? '',
 		'First Name' => $records[ 0 ]->data[ 'First Name' ] ?? '',
 		'Last Name' => $records[ 0 ]->data[ 'Last Name' ] ?? '',
+		'Co-applicant Name' => $records[ 0 ]->data[ 'Co-applicant Name' ] ?? '',
 		'Email' => $records[ 0 ]->data[ 'Email' ] ?? ''
 	];
 
