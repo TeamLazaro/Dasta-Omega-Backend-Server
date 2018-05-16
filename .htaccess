@@ -26,6 +26,14 @@ RewriteRule ^/?get-prospect-by-uid$ /front-end-helpers/validate-prospect-by-uid/
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?create-lead$ /front-end-helpers/create-lead/index.php [L,NC]
 
+# Send an OTP to a phone number
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?user-send-otp$ /front-end-helpers/user-send-otp/index.php [L,NC]
+
+# Verify an OTP
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?user-verify-otp$ /front-end-helpers/user-verify-otp/index.php [L,NC]
+
 # Get the current date and time stamp
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?get-date-and-time$ /front-end-helpers/date-and-time/index.php [L,NC]
