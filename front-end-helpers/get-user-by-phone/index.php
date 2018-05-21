@@ -27,6 +27,7 @@ try {
 	$prospect = CRM\getProspect( $phoneNumber );
 	if ( ! empty( $prospect ) ) {
 		$clientResponse[ 'data' ] = [
+			'id' => $prospect[ 'CONTACTID' ] ?? '',
 			'name' => $prospect[ 'Full Name' ] ?? '',
 			'email' => $prospect[ 'Email' ] ?? ''
 		];
@@ -37,6 +38,7 @@ try {
 	$lead = CRM\getLead( $phoneNumber );
 	if ( ! empty( $lead ) ) {
 		$clientResponse[ 'data' ] = [
+			'id' => $lead[ 'LEADID' ] ?? '',
 			'name' => $lead[ 'Full Name' ] ?? '',
 			'email' => $lead[ 'Email' ] ?? ''
 		];

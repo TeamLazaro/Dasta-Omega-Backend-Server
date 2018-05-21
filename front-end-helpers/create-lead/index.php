@@ -24,7 +24,7 @@ require_once __DIR__ . '/lib/crm.php';
 
 
 if ( empty( $_REQUEST[ 'phoneNumber' ] ) ) {
-	$clientResponse[ 'message' ] = 'No phone number was provided.'
+	$clientResponse[ 'message' ] = 'No phone number was provided.';
 	http_response_code( 500 );
 	die( json_encode( $clientResponse ) );
 }
@@ -46,6 +46,11 @@ try {
 	// Create the lead
 	$lead = CRM\createLead( $leadData );
 
+	$clientResponse[ 'data' ] = [
+		'id' => $lead[ 'LEADID' ] ?? '',
+		'name' => $lead[ 'Full Name' ] ?? '',
+		'email' => $lead[ 'Email' ] ?? ''
+	];
 	$clientResponse[ 'message' ] = 'Lead created.';
 	die( json_encode( $clientResponse ) );
 

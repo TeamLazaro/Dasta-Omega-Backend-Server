@@ -14,9 +14,17 @@ RewriteEngine On
 # For Debugging
 # RewriteRule (.*) https://example.com/?rel_uri=$1%{RELATIVE_URL} [R=301,L]
 
+# For development purposes
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?dev$ /end-points/zoho-crm/dev.php [L,NC]
+
 # Get lead based on a given phone number
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
-RewriteRule ^/?get-lead$ /front-end-helpers/lead-validator/index.php [L,NC]
+RewriteRule ^/?get-user-by-phone$ /front-end-helpers/get-user-by-phone/index.php [L,NC]
+
+# Get lead based on an id
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?get-user-by-id$ /front-end-helpers/get-user-by-id/index.php [L,NC]
 
 # Get prospect based on a given UID
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
