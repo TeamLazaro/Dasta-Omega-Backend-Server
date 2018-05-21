@@ -23,8 +23,14 @@ header( 'Content-Type: application/json' );
 require_once __DIR__ . '/lib/crm.php';
 
 
+if ( empty( $_REQUEST[ 'phoneNumber' ] ) ) {
+	$clientResponse[ 'message' ] = 'No phone number was provided.'
+	http_response_code( 500 );
+	die( json_encode( $clientResponse ) );
+}
+
 $phoneNumber = $_REQUEST[ 'phoneNumber' ];
-$unit = $_REQUEST[ 'unit' ];
+// $unit = $_REQUEST[ 'unit' ];
 $firstName = $_REQUEST[ 'firstName' ];
 $lastName = $_REQUEST[ 'lastName' ];
 $leadData = [
