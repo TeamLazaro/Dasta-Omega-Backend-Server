@@ -48,6 +48,8 @@ function getLead ( $phoneNumber/*, $email*/ ) {
 		'SMOWNERID' => $records[ 0 ]->data[ 'SMOWNERID' ],
 		'LEADID' => $records[ 0 ]->data[ 'LEADID' ],
 		'Full Name' => $records[ 0 ]->data[ 'Full Name' ],
+		'First Name' => $records[ 0 ]->data[ 'First Name' ],
+		'Last Name' => $records[ 0 ]->data[ 'Last Name' ],
 		'Email' => $records[ 0 ]->data[ 'Email' ]
 	];
 
@@ -84,6 +86,8 @@ function getProspect ( $phoneNumber/*, $email*/ ) {
 		'SMOWNERID' => $records[ 0 ]->data[ 'SMOWNERID' ],
 		'CONTACTID' => $records[ 0 ]->data[ 'CONTACTID' ],
 		'Full Name' => $records[ 0 ]->data[ 'Full Name' ],
+		'First Name' => $records[ 0 ]->data[ 'First Name' ],
+		'Last Name' => $records[ 0 ]->data[ 'Last Name' ],
 		'Email' => $records[ 0 ]->data[ 'Email' ]
 	];
 

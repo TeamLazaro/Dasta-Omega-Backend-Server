@@ -44,6 +44,8 @@ function getLeadById ( $id ) {
 		'LEADID' => $record->data[ 'LEADID' ],
 		'Phone' => $record->data[ 'Phone' ],
 		'Full Name' => $record->data[ 'Full Name' ],
+		'First Name' => $record->data[ 'First Name' ],
+		'Last Name' => $record->data[ 'Last Name' ],
 		'Email' => $record->data[ 'Email' ]
 	];
 
@@ -76,6 +78,8 @@ function getProspectById ( $id ) {
 		'CONTACTID' => $record->data[ 'CONTACTID' ],
 		'Phone' => $record->data[ 'Phone' ],
 		'Full Name' => $record->data[ 'Full Name' ],
+		'First Name' => $record->data[ 'First Name' ],
+		'Last Name' => $record->data[ 'Last Name' ],
 		'Email' => $record->data[ 'Email' ]
 	];
 

@@ -34,6 +34,8 @@ try {
 		$clientResponse[ 'data' ] = [
 			'id' => $prospect[ 'CONTACTID' ] ?? '',
 			'name' => $prospect[ 'Full Name' ] ?? '',
+			'firstName' => $prospect[ 'First Name' ] ?? '',
+			'lastName' => $prospect[ 'Last Name' ] ?? '',
 			'phoneNumber' => $prospect[ 'Phone' ] ?? '',
 			'email' => $prospect[ 'Email' ] ?? ''
 		];
@@ -46,6 +48,8 @@ try {
 		$clientResponse[ 'data' ] = [
 			'id' => $lead[ 'LEADID' ] ?? '',
 			'name' => $lead[ 'Full Name' ] ?? '',
+			'firstName' => $lead[ 'First Name' ] ?? '',
+			'lastName' => $lead[ 'Last Name' ] ?? '',
 			'phoneNumber' => $lead[ 'Phone' ] ?? '',
 			'email' => $lead[ 'Email' ] ?? ''
 		];

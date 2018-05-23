@@ -29,6 +29,8 @@ try {
 		$clientResponse[ 'data' ] = [
 			'id' => $prospect[ 'CONTACTID' ] ?? '',
 			'name' => $prospect[ 'Full Name' ] ?? '',
+			'firstName' => $prospect[ 'First Name' ] ?? '',
+			'lastName' => $prospect[ 'Last Name' ] ?? '',
 			'email' => $prospect[ 'Email' ] ?? ''
 		];
 		die( json_encode( $clientResponse ) );
@@ -40,6 +42,8 @@ try {
 		$clientResponse[ 'data' ] = [
 			'id' => $lead[ 'LEADID' ] ?? '',
 			'name' => $lead[ 'Full Name' ] ?? '',
+			'firstName' => $lead[ 'First Name' ] ?? '',
+			'lastName' => $lead[ 'Last Name' ] ?? '',
 			'email' => $lead[ 'Email' ] ?? ''
 		];
 		die( json_encode( $clientResponse ) );
