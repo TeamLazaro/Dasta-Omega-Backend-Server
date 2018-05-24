@@ -12,7 +12,7 @@ let base64 = require( "base-64" );
 let datetime = require( "./lib/datetime.js" );
 let scheduler = require( "./lib/scheduler.js" );
 let processEnquiry = require( "./lib/enquiry-processor.js" );
-let enquiries = require( "../data/enquiries.json" );
+let enquiries = require( "./db/enquiries.js" );
 let enquiryFields = require( "./lib/enquiry-fields.js" );
 
 
@@ -22,7 +22,7 @@ let enquiryFields = require( "./lib/enquiry-fields.js" );
  */
 let httpPort = 9999;
 let credentialsFileName = __dirname + "/../data/users.json";
-let logFileName = __dirname + "/../data/enquiries.json";
+let logFileName = __dirname + "/../data/enquiries.live.json";
 
 // Initiate the background task
 var backgroundTask = scheduler.schedule( processEnquiry, 5 );
@@ -97,8 +97,8 @@ router.post( "/enquiries", function ( req, res ) {
 		...req.body
 		// ...enquiryFieldsOfConcern
 	};
-	enquiries.push( enquiry );
-	fs.writeFileSync( logFileName, JSON.stringify( enquiries ) );
+	enquiries.db.push( enquiry );
+	fs.writeFileSync( logFileName, JSON.stringify( enquiries.db ) );
 
 	// Respond back
 	res.json( { message: "We're processing the enquiry." } );
@@ -160,8 +160,8 @@ router.post( "/quotes", function ( req, res ) {
 		...req.body
 		// ...enquiryFieldsOfConcern
 	};
-	enquiries.push( enquiry );
-	fs.writeFileSync( logFileName, JSON.stringify( enquiries ) );
+	enquiries.db.push( enquiry );
+	fs.writeFileSync( logFileName, JSON.stringify( enquiries.db ) );
 
 	// Respond back
 	res.json( { message: "We're processing the enquiry." } );
