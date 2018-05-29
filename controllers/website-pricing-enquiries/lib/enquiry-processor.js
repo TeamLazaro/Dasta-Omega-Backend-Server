@@ -21,9 +21,9 @@ let userFlows = require( "./user-flows.js" );
  * Constants declarations
  */
 // let rootDir = __dirname + "/../../";
-let liveEnquiriesLogFileName = __dirname + "/../../data/enquiries.live.json";
-let processedEnquiriesLogFileName = __dirname + "/../../data/enquiries.processed.json";
-let errorEnquiriesLogFileName = __dirname + "/../../data/enquiries.errors.json";
+let liveEnquiriesLogFileName = __dirname + "/../../../data/enquiries.live.json";
+let processedEnquiriesLogFileName = __dirname + "/../../../data/enquiries.processed.json";
+let errorEnquiriesLogFileName = __dirname + "/../../../data/enquiries.errors.json";
 
 async function processEnquiry ( cb ) {
 

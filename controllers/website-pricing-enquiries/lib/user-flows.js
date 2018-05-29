@@ -18,7 +18,7 @@ let qs = require( "qs" );
 /*
  * Constants declarations
  */
-let rootDir = __dirname + "/../../";
+let rootDir = __dirname + "/../../../";
 
 
 // Promisify-ing the exec function so that it plays well with the async/await syntax

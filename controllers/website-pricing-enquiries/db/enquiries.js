@@ -6,5 +6,5 @@
  *
  */
 
-const db = require( __dirname + "/../../data/enquiries.live.json" );
+const db = require( __dirname + "/../../../data/enquiries.live.json" );
 module.exports = { db }

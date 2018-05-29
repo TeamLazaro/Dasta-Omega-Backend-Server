@@ -21,8 +21,8 @@ let enquiryFields = require( "./lib/enquiry-fields.js" );
  * Constants declarations
  */
 let httpPort = 9999;
-let credentialsFileName = __dirname + "/../data/users.json";
-let logFileName = __dirname + "/../data/enquiries.live.json";
+let credentialsFileName = __dirname + "/../../data/users.json";
+let logFileName = __dirname + "/../../data/enquiries.live.json";
 
 // Initiate the background task
 var backgroundTask = scheduler.schedule( processEnquiry, 5 );
