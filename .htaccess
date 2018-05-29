@@ -17,6 +17,8 @@ RewriteEngine On
 # For development purposes
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?dev$ /end-points/zoho-crm/dev.php [L,NC]
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?sandbox$ /end-points/sandbox/index.php [L,NC]
 
 # Get lead based on a given phone number
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
@@ -46,11 +48,15 @@ RewriteRule ^/?user-verify-otp$ /front-end-helpers/user-verify-otp/index.php [L,
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?get-date-and-time$ /front-end-helpers/date-and-time/index.php [L,NC]
 
-# Make an enquiry
+# Make an enquiry through the website
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?enquiries$ http://localhost:9999/enquiries [P,L]
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?quotes$ http://localhost:9999/quotes [P,L]
+
+# Make an phone enquiry
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule ^/?calls$ http://localhost:9991/calls [P,L]
 
 # Register
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
