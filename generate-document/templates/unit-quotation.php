@@ -73,15 +73,15 @@ $keyplan = __DIR__ . '/../../media/keyplans/keyplan-0' . substr( $unit . '', -1 
 							<td>Corner flat premium charge</td>
 							<td class="text-right"><?php echo formatToINR( $cornerflat_charge ) ?></td>
 						</tr>
+						<tr>
+							<td>View Premium</td>
+							<td class="text-right"><?php echo formatToINR( $view_premium ) ?></td>
+						</tr>
 					</tbody>
 				</table>
 				<h3>total cost of flat <em><?php echo formatToINR( $total_costofapartment ) ?></em></h3>
 				<table>
 					<tbody>
-						<tr>
-							<td>View Premium</td>
-							<td class="text-right"><?php echo formatToINR( $view_premium ) ?></td>
-						</tr>
 						<tr>
 							<td>Statutory deposit</td>
 							<td class="text-right"><?php echo formatToINR( $statutory_deposit ) ?></td>
