@@ -36,7 +36,7 @@ $keyplan = __DIR__ . '/../../media/keyplans/keyplan-0' . substr( $unit . '', -1 
 				<h3>Super built-up area <em><?php echo $sft ?> sft</em></h3>
 				<h6>Garden/terrace area <em><?php echo $gardenterrace ?> sft</em></h6>
 				<h1 class="grand-total"><em>Grand total <?php echo formatToINR( $total_grand ) ?></em></h1>
-				<p>( valid till <?php echo date( 'jS M Y', strtotime( '+ 20 days' ) ) ?> )</p>
+				<p>( valid till <?php echo date( 'jS M Y', strtotime( '+ 5 days' ) ) ?> )</p>
 			</div>
 			<div class="threed section page-break">
 				<img class="force-full" src="<?php echo $floorplan3D ?>" width="<?php echo $floorplan3D_W ?>" height="<?php echo $floorplan3D_H ?>" border="0">
@@ -124,7 +124,7 @@ $keyplan = __DIR__ . '/../../media/keyplans/keyplan-0' . substr( $unit . '', -1 
 			</div>
 			<div class="grand-total section page-break">
 				<h1><em>Grand total <?php echo formatToINR( $total_grand ) ?></em></h1>
-				<p><img src="<?php echo __DIR__ ?>/../../media/icons/warning.png" height="30" width="33" border="0"/>&nbsp;&nbsp; Please note: This price is only valid till <?php echo date( 'jS M Y', strtotime( '+ 20 days' ) ) ?></p>
+				<p><img src="<?php echo __DIR__ ?>/../../media/icons/warning.png" height="30" width="33" border="0"/>&nbsp;&nbsp; Please note: This price is only valid till <?php echo date( 'jS M Y', strtotime( '+ 5 days' ) ) ?></p>
 			</div>
 			<pagebreak />
 			<div class="schedule section page-break">

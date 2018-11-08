@@ -245,7 +245,7 @@ function createQuote ( $prospect, $enquiry, $quoteName ) {
 	/*
 	 * Create the quote
 	 */
-	$validTill = date( 'Y-m-d', strtotime( '+ 14 days' ) );
+	$validTill = date( 'Y-m-d', strtotime( '+ 5 days' ) );
 	$price = $enquiry[ 'total_grand' ];
 	$email = $enquiry[ 'email' ];
 
