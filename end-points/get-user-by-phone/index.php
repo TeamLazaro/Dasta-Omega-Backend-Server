@@ -91,6 +91,7 @@ try {
 		$response[ 'code' ] = 1;
 		$response[ 'message' ] = 'Found a prospect.';
 		$response[ 'data' ] = [
+			'isAlright' => true,
 			'id' => $prospect[ 'CONTACTID' ] ?? '',
 			'name' => $prospect[ 'Full Name' ] ?? '',
 			'firstName' => $prospect[ 'First Name' ] ?? '',
@@ -106,6 +107,7 @@ try {
 		$response[ 'code' ] = 1;
 		$response[ 'message' ] = 'Found a lead.';
 		$response[ 'data' ] = [
+			'isAlright' => true,
 			'id' => $lead[ 'LEADID' ] ?? '',
 			'name' => $lead[ 'Full Name' ] ?? '',
 			'firstName' => $lead[ 'First Name' ] ?? '',
