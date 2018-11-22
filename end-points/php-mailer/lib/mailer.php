@@ -67,7 +67,7 @@ function send ( $envelope ) {
 
 		// Set who the message is to be sent to
 		$mail->addAddress( $envelope[ 'to' ][ 'email' ], '' );
-		$mail->addCC( 'adityabhat@lazaro.in', '' );
+		// $mail->addCC( 'adityabhat@lazaro.in', '' );
 
 		$mail->isHTML( true );
 
