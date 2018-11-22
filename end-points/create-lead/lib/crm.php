@@ -29,6 +29,7 @@ function createLead ( $data ) {
 				->addRecord( $data )
 				->onDuplicateError()
 				->triggerWorkflow()
+				->triggerAssignmentRule( '2929500000007436001' )
 				->request();
 	$apiResponse = array_values( $apiResponse )[ 0 ];
 	if ( ! empty( $apiResponse->error ) ) {
