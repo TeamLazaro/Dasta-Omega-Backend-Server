@@ -133,15 +133,17 @@ async function callProcessingPipeline ( call ) {
 	/*
 	 * 4. Attach the recording to the lead record on the CRM
 	 */
-	// Prolly happens on its own
-	// try {
-	// 	let apiInput = qs.stringify( { phoneNumber } );
-	// 	let command = "php add-attachment-to-record/index.php '" + apiInput + "'";
-	// 	let { stdout } = await exec( command, { cwd: rootDir } );
-	// 	let response = JSON.parse( stdout );
-	// } catch ( { code, stdout, stderr } ) {
-	// 	call.errors += "[Attach-recording]\n" + stdout + "\n" + stderr + "\n\n";
-	// }
+	try {
+		let apiInput = qs.stringify( {
+			leadId,
+			resourceURL: call.resource_url
+		} );
+		let command = "php attach-file-to-lead/index.php '" + apiInput + "'";
+		let { stdout } = await exec( command, { cwd: rootDir } );
+		let response = JSON.parse( stdout );
+	} catch ( { code, stdout, stderr } ) {
+		call.errors += "[Attach-recording]\n" + stdout + "\n" + stderr + "\n\n";
+	}
 
 	return call;
 
