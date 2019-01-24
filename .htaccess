@@ -36,6 +36,11 @@ RewriteRule ^/?get-prospect-by-uid$ /front-end-helpers/validate-prospect-by-uid/
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?create-lead$ /end-points/create-lead/index.php [L,NC]
 
+# Update a user ( lead or prospect )
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteCond "%{REQUEST_METHOD}" POST
+RewriteRule ^/?users/([^/]*)$ /end-points/user-update/index.php?_userId=$1 [QSA,L,NC]
+
 # Send an OTP to a phone number
 RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?user-send-otp$ /front-end-helpers/user-send-otp/index.php [L,NC]
