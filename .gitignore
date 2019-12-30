@@ -3,8 +3,8 @@
 .DS_Store
 
 # Third-party packages
-# node_modules
-# vendor
+/node_modules
+/vendor
 
 # The media folder
 media
