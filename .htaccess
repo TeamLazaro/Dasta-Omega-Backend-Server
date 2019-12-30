@@ -15,73 +15,59 @@ RewriteEngine On
 # RewriteRule (.*) https://example.com/?rel_uri=$1%{RELATIVE_URL} [R=301,L]
 
 # For development purposes
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?dev$ /end-points/zoho-crm/dev.php [L,NC]
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?sandbox$ /end-points/sandbox/index.php [L,NC]
 
 # Get lead based on a given phone number
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?get-user-by-phone$ /end-points/get-user-by-phone/index.php [L,NC]
 
 # Get lead based on an id
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?get-user-by-id$ /front-end-helpers/get-user-by-id/index.php [L,NC]
 
 # Get prospect based on a given UID
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?get-prospect-by-uid$ /front-end-helpers/validate-prospect-by-uid/index.php [L,NC]
 
 # Create a lead given a phone number
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?create-lead$ /end-points/create-lead/index.php [L,NC]
 
 # Update a user ( lead or prospect )
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteCond "%{REQUEST_METHOD}" POST
 RewriteRule ^/?users/([^/]*)$ /end-points/user-update/index.php?_userId=$1 [QSA,L,NC]
 
 # Send an OTP to a phone number
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?user-send-otp$ /front-end-helpers/user-send-otp/index.php [L,NC]
 
 # Verify an OTP
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?user-verify-otp$ /front-end-helpers/user-verify-otp/index.php [L,NC]
 
 # Get the current date and time stamp
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?get-date-and-time$ /front-end-helpers/date-and-time/index.php [L,NC]
 
 # Make an enquiry through the website
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?enquiries$ http://localhost:9999/enquiries [P,L]
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?quotes$ http://localhost:9999/quotes [P,L]
 
 # Make an phone enquiry
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?calls$ http://localhost:9991/calls [P,L]
 
 # Register
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?register$ /front-end-helpers/user-register/index.php [L,NC]
 
 # Register OAuth callback
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?register/google/callback$ /front-end-helpers/user-register/callback-google.php [L,NC]
 
 # Log-in
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?login/google/callback$ /front-end-helpers/user-login/callback-google.php [L,NC]
 
 # Log out
-RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 RewriteRule ^/?logout$ /front-end-helpers/user-login/logout.php [L,NC]
+
+# If the request **does** match a file, do nothing
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" -f
+RewriteRule .* - [L]
 
 # the catch-all "else" block
 # forward the request to index.php; it will do the heavy-lifting
-# RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
 # RewriteRule .? index.php [QSA,L]
 
 </IfModule>
