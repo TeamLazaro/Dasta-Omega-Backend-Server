@@ -1,0 +1,4 @@
+
+# Renew Zoho's API keys
+# # every 45 minutes
+15,45		*		*		*		*	curl -X POST http://localhost:9996/v2/provider/zoho/renew

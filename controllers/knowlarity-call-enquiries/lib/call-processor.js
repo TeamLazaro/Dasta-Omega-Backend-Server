@@ -135,10 +135,11 @@ async function callProcessingPipeline ( call ) {
 	 */
 	try {
 		let apiInput = qs.stringify( {
-			leadId,
-			resourceURL: call.resource_url
+			recordType: "Leads",
+			recordId: leadId,
+			resourcePath: call.resource_url
 		} );
-		let command = "php attach-file-to-lead/index.php '" + apiInput + "'";
+		let command = "php attach-resource.php '" + apiInput + "'";
 		let { stdout } = await exec( command, { cwd: rootDir } );
 		let response = JSON.parse( stdout );
 	} catch ( { code, stdout, stderr } ) {

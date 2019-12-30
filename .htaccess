@@ -15,11 +15,12 @@ RewriteEngine On
 # RewriteRule (.*) https://example.com/?rel_uri=$1%{RELATIVE_URL} [R=301,L]
 
 # For development purposes
-RewriteRule ^/?dev$ /end-points/zoho-crm/dev.php [L,NC]
-RewriteRule ^/?sandbox$ /end-points/sandbox/index.php [L,NC]
+RewriteRule ^/?dev$ /dev/zoho-crm/dev.php [L,NC]
+RewriteRule ^/?sandbox$ /dev/sandbox/index.php [L,NC]
 
 # Get lead based on a given phone number
 RewriteRule ^/?get-user-by-phone$ /end-points/get-user-by-phone/index.php [L,NC]
+RewriteRule ^/?v2/get-user-by-phone$ /routes/person-get-by-phone.php [L,NC]
 
 # Get lead based on an id
 RewriteRule ^/?get-user-by-id$ /front-end-helpers/get-user-by-id/index.php [L,NC]
@@ -28,11 +29,17 @@ RewriteRule ^/?get-user-by-id$ /front-end-helpers/get-user-by-id/index.php [L,NC
 RewriteRule ^/?get-prospect-by-uid$ /front-end-helpers/validate-prospect-by-uid/index.php [L,NC]
 
 # Create a lead given a phone number
-RewriteRule ^/?create-lead$ /end-points/create-lead/index.php [L,NC]
+RewriteRule ^/?create-lead$ /routes/lead-create.php [L,NC]
+# RewriteRule ^/?v1/create-lead$ /end-points/create-lead/index.php [L,NC]
 
 # Update a user ( lead or prospect )
 RewriteCond "%{REQUEST_METHOD}" POST
 RewriteRule ^/?users/([^/]*)$ /end-points/user-update/index.php?_userId=$1 [QSA,L,NC]
+RewriteCond "%{REQUEST_METHOD}" POST
+RewriteRule ^/?v2/users/([^/]+)$ /routes/person-update.php?_id=$1 [QSA,L,NC]
+
+# Update or create a lead / prospect
+RewriteRule ^/?v2/upsert-customer$ /routes/upsert-customer.php [L,NC]
 
 # Send an OTP to a phone number
 RewriteRule ^/?user-send-otp$ /front-end-helpers/user-send-otp/index.php [L,NC]
@@ -46,6 +53,9 @@ RewriteRule ^/?get-date-and-time$ /front-end-helpers/date-and-time/index.php [L,
 # Make an enquiry through the website
 RewriteRule ^/?enquiries$ http://localhost:9999/enquiries [P,L]
 RewriteRule ^/?quotes$ http://localhost:9999/quotes [P,L]
+
+# Attach a resource to a record
+RewriteRule ^/?attach-file-to-lead$ /end-points/attach-file-to-lead/index.php [L,NC]
 
 # Make an phone enquiry
 RewriteRule ^/?calls$ http://localhost:9991/calls [P,L]
