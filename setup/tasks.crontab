@@ -1,0 +1,10 @@
+
+# Global environment constants
+SHELL=/bin/sh
+MAILTO="adi@lazaro.in"
+LOG_DIR="/var/www/environment/html/logs"
+
+# Renew Zoho's API keys
+# # every 15th and 45th minute of the hour
+JOBNAME="zoho-renew-api-token"
+15,45		*		*		*		*	curl -X POST http://localhost/provider/zoho/renew-api-tokens 1> "$LOG_DIR/$JOBNAME-out.log" 2> "$LOG_DIR/$JOBNAME-err.log"

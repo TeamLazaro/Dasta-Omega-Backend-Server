@@ -18,21 +18,26 @@ RewriteEngine On
 RewriteRule ^/?dev$ /end-points/zoho-crm/dev.php [L,NC]
 RewriteRule ^/?sandbox$ /end-points/sandbox/index.php [L,NC]
 
-# Get lead based on a given phone number
-RewriteRule ^/?get-user-by-phone$ /end-points/get-user-by-phone/index.php [L,NC]
+# Refresh the Zoho API tokens
+RewriteRule ^/?provider/zoho/renew-api-tokens$ /routes/refresh-access-token.php [QSA,NC,L]
 
-# Get lead based on an id
-RewriteRule ^/?get-user-by-id$ /front-end-helpers/get-user-by-id/index.php [L,NC]
+# Get person based on a given phone number
+RewriteRule ^/?get-user-by-phone$ /routes/person-get-by-phone.php [QSA,NC,L]
+
+# Get person based on an id
+RewriteRule ^/?get-user-by-id$ /routes/person-get-by-id.php [QSA,NC,L]
 
 # Get prospect based on a given UID
-RewriteRule ^/?get-prospect-by-uid$ /front-end-helpers/validate-prospect-by-uid/index.php [L,NC]
+RewriteRule ^/?get-prospect-by-uid$ /routes/person-get-by-uid.php [QSA,NC,L]
 
-# Create a lead given a phone number
-RewriteRule ^/?create-lead$ /end-points/create-lead/index.php [L,NC]
+# Create a person given a phone number
+RewriteRule ^/?create-lead$ /routes/person-create.php [QSA,NC,L]
 
 # Update a user ( lead or prospect )
-RewriteCond "%{REQUEST_METHOD}" POST
-RewriteRule ^/?users/([^/]*)$ /end-points/user-update/index.php?_userId=$1 [QSA,L,NC]
+RewriteRule ^/?users/([^/]*)$ /routes/person-update.php?_id=$1 [QSA,L,NC]
+
+# Update or create a lead / prospect
+RewriteRule ^/?person-upsert$ /routes/person-upsert.php [QSA,L,NC]
 
 # Send an OTP to a phone number
 RewriteRule ^/?user-send-otp$ /front-end-helpers/user-send-otp/index.php [L,NC]
@@ -46,6 +51,12 @@ RewriteRule ^/?get-date-and-time$ /front-end-helpers/date-and-time/index.php [L,
 # Make an enquiry through the website
 RewriteRule ^/?enquiries$ http://localhost:9999/enquiries [P,L]
 RewriteRule ^/?quotes$ http://localhost:9999/quotes [P,L]
+
+# Attach a resource to a record
+RewriteRule ^/?resource-attach$ /routes/resource-attach.php [QSA,NC,L]
+
+# Create a quote
+RewriteRule ^/?quote-create$ /routes/quote-create.php [QSA,NC,L]
 
 # Make an phone enquiry
 RewriteRule ^/?calls$ http://localhost:9991/calls [P,L]

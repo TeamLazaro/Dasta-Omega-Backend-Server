@@ -2,6 +2,9 @@
 # Mac OSX hidden files
 .DS_Store
 
+# The environment folder
+/environment
+
 # Third-party packages
 /node_modules
 /vendor
