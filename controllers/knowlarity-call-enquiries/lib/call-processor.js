@@ -22,7 +22,7 @@ let datetime = require( "./datetime.js" );
 /*
  * Constants declarations
  */
-let rootDir = __dirname + "/../../../end-points";
+let rootDir = __dirname + "/../../../";
 let liveCallsLogFileName = __dirname + "/../../../data/calls.live.json";
 let processedCallsLogFileName = __dirname + "/../../../data/calls.processed.json";
 let errorCallsLogFileName = __dirname + "/../../../data/calls.errors.json";
@@ -86,7 +86,7 @@ async function callProcessingPipeline ( call ) {
 	let user = { };
 	try {
 		let apiInput = qs.stringify( { phoneNumber } );
-		let command = "php get-user-by-phone/index.php '" + apiInput + "'";
+		let command = "php routes/person-get-by-phone.php '" + apiInput + "'";
 		let { stdout } = await exec( command, { cwd: rootDir } );
 		let response = JSON.parse( stdout );
 		// If a lead or prospect already exists
@@ -118,7 +118,7 @@ async function callProcessingPipeline ( call ) {
 	let leadId;
 	try {
 		let apiInput = qs.stringify( user );
-		let command = "php create-lead/index.php '" + apiInput + "'";
+		let command = "php routes/person-create.php '" + apiInput + "'";
 		let { stdout } = await exec( command, { cwd: rootDir } );
 		let response = JSON.parse( stdout );
 		if ( response.code == 1 ) {
@@ -135,10 +135,11 @@ async function callProcessingPipeline ( call ) {
 	 */
 	try {
 		let apiInput = qs.stringify( {
-			leadId,
-			resourceURL: call.resource_url
+			recordType: "Leads",
+			recordId: leadId,
+			resourcePath: call.resource_url
 		} );
-		let command = "php attach-file-to-lead/index.php '" + apiInput + "'";
+		let command = "php routes/resource-attach.php '" + apiInput + "'";
 		let { stdout } = await exec( command, { cwd: rootDir } );
 		let response = JSON.parse( stdout );
 	} catch ( { code, stdout, stderr } ) {

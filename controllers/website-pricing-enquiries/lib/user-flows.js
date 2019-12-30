@@ -59,7 +59,7 @@ async function regular ( enquiry ) {
 	enquiry.description = "Ingesting the enquiry into the CRM.";
 	try {
 		let apiInput = qs.stringify( { enquiry: enquiry } );
-		let command = "php end-points/zoho-crm/create-or-append-to-lead-or-prospect.php '" + apiInput + "'";
+		let command = "php routes/person-upsert.php '" + apiInput + "'";
 		let response = await exec( command, { cwd: rootDir } );
 	} catch ( e ) {
 		enquiry.errors += "[CRM]\n" + e.stderr + "\n\n";
@@ -103,7 +103,7 @@ async function executive ( enquiry ) {
 	enquiry.description = "Ingesting the enquiry into the CRM.";
 	try {
 		let apiInput = qs.stringify( { enquiry: enquiry } );
-		let command = "php end-points/zoho-crm/create-quote.php '" + apiInput + "'";
+		let command = "php routes/quote-create.php '" + apiInput + "'";
 		let response = await exec( command, { cwd: rootDir } );
 	} catch ( e ) {
 		enquiry.errors += "[CRM]\n" + e.stderr + "\n\n";
