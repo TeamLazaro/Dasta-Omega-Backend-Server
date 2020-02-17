@@ -25,6 +25,14 @@ $phoneNumber = $_REQUEST[ 'phoneNumber' ];
 $apiKey = '693bc978-580e-11e8-a895-0200cd936042';
 
 
+/*
+ * If the phone number is spam
+ *	( as of now that means if it is from the UK )
+ * 	don't do anything
+ */
+if ( preg_match( '/^\+?44/', $phoneNumber ) )
+	exit;
+
 
 /*
  * Make the request

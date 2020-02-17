@@ -15,8 +15,8 @@ RewriteEngine On
 # RewriteRule (.*) https://example.com/?rel_uri=$1%{RELATIVE_URL} [R=301,L]
 
 # For development purposes
-RewriteRule ^/?dev$ /end-points/zoho-crm/dev.php [L,NC]
-RewriteRule ^/?sandbox$ /end-points/sandbox/index.php [L,NC]
+# RewriteRule ^/?dev$ /dev/zoho-crm/dev.php [L,NC]
+# RewriteRule ^/?sandbox$ /dev/sandbox/index.php [L,NC]
 
 # Refresh the Zoho API tokens
 RewriteRule ^/?provider/zoho/renew-api-tokens$ /routes/refresh-access-token.php [QSA,NC,L]

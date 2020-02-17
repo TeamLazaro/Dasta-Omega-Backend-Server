@@ -69,7 +69,7 @@ try {
 			'name' => $person[ 'Full_Name' ],
 			'firstName' => $person[ 'First_Name' ] ?? '',
 			'lastName' => $person[ 'Last_Name' ],
-			'coApplicantName' => $person[ 'Secondary_Contact' ],
+			'coApplicantName' => $person[ 'Secondary_Contact' ] ?? '',
 			'phoneNumber' => $person[ 'Phone' ],
 			'email' => $person[ 'Email' ] ?? ''
 		]
